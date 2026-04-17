@@ -1,0 +1,67 @@
+%PDF-1.4
+1 0 obj
+<< /Length 707 >>
+stream
+BT
+/F2 16 Tf
+180 800 Td
+(Platr'O'Matic SARL) Tj
+/F1 10 Tf
+0 -20 Td
+(42 rue du Crepissage - 75011 Paris | SIRET : 123 456 789 00012) Tj
+/F2 13 Tf
+-80 -50 Td
+(FACTURE) Tj
+/F1 11 Tf
+0 -25 Td
+(Numero       : FAC-2026-001) Tj
+0 -18 Td
+(Date         : 15 mars 2026) Tj
+0 -18 Td
+(Client       : RenovBat - 8 avenue des Batisseurs, 69000 Lyon) Tj
+/F2 11 Tf
+0 -40 Td
+(DESIGNATION) Tj
+200 0 Td
+(MONTANT HT) Tj
+/F1 11 Tf
+-200 -20 Td
+(Travaux d'aplanissement de facade - Lot A) Tj
+200 0 Td
+(10 416,67 EUR) Tj
+-200 -35 Td
+(TVA 20 %) Tj
+200 0 Td
+(  2 083,33 EUR) Tj
+/F2 12 Tf
+-200 -25 Td
+(TOTAL TTC) Tj
+200 0 Td
+(12 500,00 EUR) Tj
+/F1 9 Tf
+-200 -60 Td
+(Paiement a 30 jours. IBAN : FR76 1234 5678 9012 3456 7890 123) Tj
+ET
+endstream
+endobj
+2 0 obj
+<< /Type /Page /Parent 3 0 R /Resources << /Font << /F1 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >> /F2 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >> >> >> /MediaBox [0 0 595 842] /Contents 1 0 R >>
+endobj
+3 0 obj
+<< /Type /Pages /Kids [2 0 R] /Count 1 >>
+endobj
+4 0 obj
+<< /Type /Catalog /Pages 3 0 R >>
+endobj
+xref
+0 5
+0000000000 65535 f 
+0000000009 00000 n 
+0000000767 00000 n 
+0000001006 00000 n 
+0000001063 00000 n 
+trailer
+<< /Size 5 /Root 4 0 R >>
+startxref
+1112
+%%EOF
