@@ -1,6 +1,6 @@
 %PDF-1.4
 1 0 obj
-<< /Length 707 >>
+<< /Length 666 >>
 stream
 BT
 /F2 16 Tf
@@ -40,7 +40,7 @@ BT
 (12 500,00 EUR) Tj
 /F1 9 Tf
 -200 -60 Td
-(Paiement a 30 jours. IBAN : FR76 1234 5678 9012 3456 7890 123) Tj
+(Paiement a 30 jours.) Tj
 ET
 endstream
 endobj
@@ -57,11 +57,11 @@ xref
 0 5
 0000000000 65535 f 
 0000000009 00000 n 
-0000000767 00000 n 
-0000001006 00000 n 
-0000001063 00000 n 
+0000000726 00000 n 
+0000000965 00000 n 
+0000001022 00000 n 
 trailer
 << /Size 5 /Root 4 0 R >>
 startxref
-1112
+1071
 %%EOF
