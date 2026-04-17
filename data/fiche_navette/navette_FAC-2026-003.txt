@@ -1,0 +1,15 @@
+========================================
+FICHE NAVETTE — PROJET renovation_2026
+========================================
+Référence facture  : FAC-2026-003
+Date de la facture : 5 avril 2026
+Émetteur           : ChaudoMagic SAS
+Lot concerné       : renovation_chauffage
+Montant TTC        : 19 300,00 EUR
+
+----------------------------------------
+          ✓ FACTURE APPROUVÉE
+----------------------------------------
+Date d'approbation : 17/04/2026
+Approuvé par       : RenovBat
+========================================

@@ -38,7 +38,7 @@ def parse_facture(path):
 
 Cherche dans `texts` :
 - Numéro de facture : premier élément contenant `FAC-`
-- Date : élément contenant `Date`
+- Date : élément contenant `Date` — supprimer le préfixe label avec `re.sub(r"^[Dd]ate[^:]*:\s*", "", t).strip()`
 - Société : premier texte > 5 caractères, pas une adresse ni un SIRET
 - Montant TTC : élément contenant `TOTAL TTC`, extraire le nombre
 
@@ -61,7 +61,7 @@ Cherche dans `texts` :
 - Somme des montants des `navette_*.txt` existants pour ce prestataire + montant en cours.
 - Si total > `montant_max` → **REJET** : "Dépassement du budget prestataire (max=X€, engagé=Y€, facture=Z€)".
 
-Pour lire les montants des navettes existantes, chercher la ligne `Montant TTC` dans chaque `navette_*.txt` et normaliser : supprimer les espaces, remplacer la virgule par un point.
+Pour lire les montants des navettes existantes, chercher la ligne `Montant TTC` dans chaque `navette_*.txt` et normaliser : supprimer les espaces insécables et normaux, remplacer la virgule par un point.
 
 ---
 
