@@ -98,7 +98,7 @@ FACTURES = {
 (12 500,00 EUR) Tj
 /F1 9 Tf
 -200 -60 Td
-(Paiement a 30 jours. IBAN : FR76 1234 5678 9012 3456 7890 123) Tj
+(Paiement a 30 jours.) Tj
 ET""",
     "FAC-2026-002.pdf": """BT
 /F2 14 Tf
