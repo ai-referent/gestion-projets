@@ -1,0 +1,15 @@
+========================================
+FICHE NAVETTE — PROJET renovation_2026
+========================================
+Référence facture  : FAC-2026-002
+Date de la facture : 28 mars 2026
+Émetteur           : RevêtoPower & Associés
+Lot concerné       : isolation_thermique
+Montant TTC        : 18 750,00 EUR
+
+----------------------------------------
+          ✓ FACTURE APPROUVÉE
+----------------------------------------
+Date d'approbation : 17/04/2026
+Approuvé par       : RenovBat
+========================================
