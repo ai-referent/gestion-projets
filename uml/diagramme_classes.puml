@@ -1,0 +1,22 @@
+@startuml diagramme_classes
+
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor White
+    BorderColor Black
+    ArrowColor Black
+}
+
+class Entreprise {
+    - identifiant : String
+    - nom : String
+    - adresse : String
+    - siret : String
+    --
+    + getId() : String
+    + getNom() : String
+    + getAdresse() : String
+    + getSiret() : String
+}
+
+@enduml
