@@ -1,76 +1,306 @@
-%PDF-1.4
+%PDF-1.7
+%‚„œ”
 1 0 obj
-<< /Length 1160 >>
+<< /Length 1020 >>
 stream
 BT
-/F2 20 Tf
+/F2 16 Tf
 50 820 Td
 (ChaudoMagic SAS) Tj
-/F1 9 Tf
+/F1 10 Tf
 0 -18 Td
-(Specialists du chauffage et au-dela) Tj
-0 -12 Td
 (3 boulevard de la Vapeur - 31000 Toulouse) Tj
-0 -12 Td
-(SIRET : 987 654 321 00034 | TVA : FR12987654321) Tj
+0 -14 Td
+(SIRET : 98765432100034) Tj
 /F2 14 Tf
 0 -45 Td
-(== FACTURE ==) Tj
+(FACTURE) Tj
 /F1 11 Tf
 0 -22 Td
-(Ref. facture  : FAC-2026-003) Tj
+(Numero        : FAC-2026-003) Tj
 0 -16 Td
 (Date          : 5 avril 2026) Tj
 0 -16 Td
-(Ref. client   : RENOVBAT-LYON-001) Tj
+(Client        : RenovBat - 8 avenue des Batisseurs, 69000 Lyon) Tj
 0 -16 Td
-(Objet         : Renovation complete de la chaudiere centrale) Tj
+(Lot           : renovation_chauffage) Tj
 /F2 11 Tf
 0 -35 Td
-(Detail des travaux :) Tj
+(Designation) Tj
+300 0 Td
+(Montant HT) Tj
 /F1 11 Tf
-0 -18 Td
-(  - Depose ancienne chaudiere      2 500,00 EUR HT) Tj
-0 -16 Td
-(  - Fourniture chaudiere neuve     8 000,00 EUR HT) Tj
-0 -16 Td
-(  - Pose et raccordement           4 000,00 EUR HT) Tj
-0 -16 Td
-(  - Mise en service et tests       1 000,00 EUR HT) Tj
-0 -16 Td
-(  - Deplacements et divers           583,33 EUR HT) Tj
+-300 -20 Td
+(Depose ancienne chaudiere) Tj
+300 0 Td
+(2 500,00 EUR) Tj
 /F1 11 Tf
-0 -25 Td
-(Sous-total HT :                   16 083,33 EUR) Tj
-0 -16 Td
-(TVA 20 %  :                        3 216,67 EUR) Tj
+-300 -16 Td
+(Fourniture chaudiere neuve) Tj
+300 0 Td
+(8 000,00 EUR) Tj
+/F1 11 Tf
+-300 -16 Td
+(Pose et raccordement) Tj
+300 0 Td
+(4 000,00 EUR) Tj
+/F1 11 Tf
+-300 -16 Td
+(Mise en service et tests) Tj
+300 0 Td
+(1 000,00 EUR) Tj
+/F1 11 Tf
+-300 -16 Td
+(Deplacements et divers) Tj
+300 0 Td
+(583,33 EUR) Tj
+-300 -16 Td
+(TVA 20%) Tj
+300 0 Td
+(3 216,67 EUR) Tj
 /F2 12 Tf
-0 -20 Td
-(TOTAL TTC :                       19 300,00 EUR) Tj
-/F1 8 Tf
-0 -55 Td
-(Garantie 2 ans pieces et main d'oeuvre - Paiement 30 jours fin de mois) Tj
+-300 -22 Td
+(TOTAL TTC) Tj
+300 0 Td
+(19 300,00 EUR) Tj
+/F1 9 Tf
+-300 -60 Td
+(Paiement a 30 jours.) Tj
 ET
 endstream
 endobj
 2 0 obj
-<< /Type /Page /Parent 3 0 R /Resources << /Font << /F1 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >> /F2 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >> >> >> /MediaBox [0 0 595 842] /Contents 1 0 R >>
+<< /Type /Metadata /Subtype /XML /Length 600 >>
+stream
+Ôªø<?xpacket begin="Ôªø" id="W5M0MpCehiHzreSzNTczkc9d"?><x:xmpmeta xmlns:x="adobe:ns:meta/"><rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"><rdf:Description rdf:about="" xmlns:pdfaid="http://www.aiim.org/pdfa/ns/id/" xmlns:fx="urn:factur-x:pdfa:CrossIndustryDocument:invoice:1p0#"><pdfaid:part>3</pdfaid:part><pdfaid:conformance>B</pdfaid:conformance><fx:DocumentType>INVOICE</fx:DocumentType><fx:DocumentFileName>factur-x.xml</fx:DocumentFileName><fx:Version>1.0</fx:Version><fx:ConformanceLevel>BASIC</fx:ConformanceLevel></rdf:Description></rdf:RDF></x:xmpmeta><?xpacket end="w"?>
+endstream
 endobj
 3 0 obj
-<< /Type /Pages /Kids [2 0 R] /Count 1 >>
+<< /Type /EmbeddedFile /Subtype /text#2Fxml /Params << /Size 8713 /CheckSum <e4a92193e282c87f2c7a6be432271133> >> /Length 8713 >>
+stream
+<?xml version="1.0" encoding="UTF-8"?>
+<rsm:CrossIndustryInvoice
+  xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100"
+  xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100"
+  xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100">
+  <rsm:ExchangedDocumentContext>
+    <ram:GuidelineSpecifiedDocumentContextParameter>
+      <ram:ID>urn:factur-x.eu:1p0:basic</ram:ID>
+    </ram:GuidelineSpecifiedDocumentContextParameter>
+  </rsm:ExchangedDocumentContext>
+  <rsm:ExchangedDocument>
+    <ram:ID>FAC-2026-003</ram:ID>
+    <ram:TypeCode>380</ram:TypeCode>
+    <ram:IssueDateTime>
+      <udt:DateTimeString format="102">20260405</udt:DateTimeString>
+    </ram:IssueDateTime>
+  </rsm:ExchangedDocument>
+  <rsm:SupplyChainTradeTransaction>
+  <ram:IncludedSupplyChainTradeLineItem>
+    <ram:AssociatedDocumentLineDocument>
+      <ram:LineID>1</ram:LineID>
+    </ram:AssociatedDocumentLineDocument>
+    <ram:SpecifiedTradeProduct>
+      <ram:Name>Depose ancienne chaudiere</ram:Name>
+    </ram:SpecifiedTradeProduct>
+    <ram:SpecifiedLineTradeAgreement>
+      <ram:NetPriceProductTradePrice>
+        <ram:ChargeAmount>2500.00</ram:ChargeAmount>
+      </ram:NetPriceProductTradePrice>
+    </ram:SpecifiedLineTradeAgreement>
+    <ram:SpecifiedLineTradeDelivery>
+      <ram:BilledQuantity unitCode="C62">1.00</ram:BilledQuantity>
+    </ram:SpecifiedLineTradeDelivery>
+    <ram:SpecifiedLineTradeSettlement>
+      <ram:ApplicableTradeTax>
+        <ram:TypeCode>VAT</ram:TypeCode>
+        <ram:CategoryCode>S</ram:CategoryCode>
+        <ram:RateApplicablePercent>20.00</ram:RateApplicablePercent>
+      </ram:ApplicableTradeTax>
+      <ram:SpecifiedTradeSettlementLineMonetarySummation>
+        <ram:LineTotalAmount>2500.00</ram:LineTotalAmount>
+      </ram:SpecifiedTradeSettlementLineMonetarySummation>
+    </ram:SpecifiedLineTradeSettlement>
+  </ram:IncludedSupplyChainTradeLineItem>
+  <ram:IncludedSupplyChainTradeLineItem>
+    <ram:AssociatedDocumentLineDocument>
+      <ram:LineID>2</ram:LineID>
+    </ram:AssociatedDocumentLineDocument>
+    <ram:SpecifiedTradeProduct>
+      <ram:Name>Fourniture chaudiere neuve</ram:Name>
+    </ram:SpecifiedTradeProduct>
+    <ram:SpecifiedLineTradeAgreement>
+      <ram:NetPriceProductTradePrice>
+        <ram:ChargeAmount>8000.00</ram:ChargeAmount>
+      </ram:NetPriceProductTradePrice>
+    </ram:SpecifiedLineTradeAgreement>
+    <ram:SpecifiedLineTradeDelivery>
+      <ram:BilledQuantity unitCode="C62">1.00</ram:BilledQuantity>
+    </ram:SpecifiedLineTradeDelivery>
+    <ram:SpecifiedLineTradeSettlement>
+      <ram:ApplicableTradeTax>
+        <ram:TypeCode>VAT</ram:TypeCode>
+        <ram:CategoryCode>S</ram:CategoryCode>
+        <ram:RateApplicablePercent>20.00</ram:RateApplicablePercent>
+      </ram:ApplicableTradeTax>
+      <ram:SpecifiedTradeSettlementLineMonetarySummation>
+        <ram:LineTotalAmount>8000.00</ram:LineTotalAmount>
+      </ram:SpecifiedTradeSettlementLineMonetarySummation>
+    </ram:SpecifiedLineTradeSettlement>
+  </ram:IncludedSupplyChainTradeLineItem>
+  <ram:IncludedSupplyChainTradeLineItem>
+    <ram:AssociatedDocumentLineDocument>
+      <ram:LineID>3</ram:LineID>
+    </ram:AssociatedDocumentLineDocument>
+    <ram:SpecifiedTradeProduct>
+      <ram:Name>Pose et raccordement</ram:Name>
+    </ram:SpecifiedTradeProduct>
+    <ram:SpecifiedLineTradeAgreement>
+      <ram:NetPriceProductTradePrice>
+        <ram:ChargeAmount>4000.00</ram:ChargeAmount>
+      </ram:NetPriceProductTradePrice>
+    </ram:SpecifiedLineTradeAgreement>
+    <ram:SpecifiedLineTradeDelivery>
+      <ram:BilledQuantity unitCode="C62">1.00</ram:BilledQuantity>
+    </ram:SpecifiedLineTradeDelivery>
+    <ram:SpecifiedLineTradeSettlement>
+      <ram:ApplicableTradeTax>
+        <ram:TypeCode>VAT</ram:TypeCode>
+        <ram:CategoryCode>S</ram:CategoryCode>
+        <ram:RateApplicablePercent>20.00</ram:RateApplicablePercent>
+      </ram:ApplicableTradeTax>
+      <ram:SpecifiedTradeSettlementLineMonetarySummation>
+        <ram:LineTotalAmount>4000.00</ram:LineTotalAmount>
+      </ram:SpecifiedTradeSettlementLineMonetarySummation>
+    </ram:SpecifiedLineTradeSettlement>
+  </ram:IncludedSupplyChainTradeLineItem>
+  <ram:IncludedSupplyChainTradeLineItem>
+    <ram:AssociatedDocumentLineDocument>
+      <ram:LineID>4</ram:LineID>
+    </ram:AssociatedDocumentLineDocument>
+    <ram:SpecifiedTradeProduct>
+      <ram:Name>Mise en service et tests</ram:Name>
+    </ram:SpecifiedTradeProduct>
+    <ram:SpecifiedLineTradeAgreement>
+      <ram:NetPriceProductTradePrice>
+        <ram:ChargeAmount>1000.00</ram:ChargeAmount>
+      </ram:NetPriceProductTradePrice>
+    </ram:SpecifiedLineTradeAgreement>
+    <ram:SpecifiedLineTradeDelivery>
+      <ram:BilledQuantity unitCode="C62">1.00</ram:BilledQuantity>
+    </ram:SpecifiedLineTradeDelivery>
+    <ram:SpecifiedLineTradeSettlement>
+      <ram:ApplicableTradeTax>
+        <ram:TypeCode>VAT</ram:TypeCode>
+        <ram:CategoryCode>S</ram:CategoryCode>
+        <ram:RateApplicablePercent>20.00</ram:RateApplicablePercent>
+      </ram:ApplicableTradeTax>
+      <ram:SpecifiedTradeSettlementLineMonetarySummation>
+        <ram:LineTotalAmount>1000.00</ram:LineTotalAmount>
+      </ram:SpecifiedTradeSettlementLineMonetarySummation>
+    </ram:SpecifiedLineTradeSettlement>
+  </ram:IncludedSupplyChainTradeLineItem>
+  <ram:IncludedSupplyChainTradeLineItem>
+    <ram:AssociatedDocumentLineDocument>
+      <ram:LineID>5</ram:LineID>
+    </ram:AssociatedDocumentLineDocument>
+    <ram:SpecifiedTradeProduct>
+      <ram:Name>Deplacements et divers</ram:Name>
+    </ram:SpecifiedTradeProduct>
+    <ram:SpecifiedLineTradeAgreement>
+      <ram:NetPriceProductTradePrice>
+        <ram:ChargeAmount>583.33</ram:ChargeAmount>
+      </ram:NetPriceProductTradePrice>
+    </ram:SpecifiedLineTradeAgreement>
+    <ram:SpecifiedLineTradeDelivery>
+      <ram:BilledQuantity unitCode="C62">1.00</ram:BilledQuantity>
+    </ram:SpecifiedLineTradeDelivery>
+    <ram:SpecifiedLineTradeSettlement>
+      <ram:ApplicableTradeTax>
+        <ram:TypeCode>VAT</ram:TypeCode>
+        <ram:CategoryCode>S</ram:CategoryCode>
+        <ram:RateApplicablePercent>20.00</ram:RateApplicablePercent>
+      </ram:ApplicableTradeTax>
+      <ram:SpecifiedTradeSettlementLineMonetarySummation>
+        <ram:LineTotalAmount>583.33</ram:LineTotalAmount>
+      </ram:SpecifiedTradeSettlementLineMonetarySummation>
+    </ram:SpecifiedLineTradeSettlement>
+  </ram:IncludedSupplyChainTradeLineItem>
+    <ram:ApplicableHeaderTradeAgreement>
+      <ram:SellerTradeParty>
+        <ram:Name>ChaudoMagic SAS</ram:Name>
+      <ram:SpecifiedLegalOrganization>
+        <ram:ID schemeID="0002">98765432100034</ram:ID>
+      </ram:SpecifiedLegalOrganization>
+        <ram:PostalTradeAddress>
+          <ram:LineOne>3 boulevard de la Vapeur</ram:LineOne>
+          <ram:PostcodeCode>31000</ram:PostcodeCode>
+          <ram:CityName>Toulouse</ram:CityName>
+          <ram:CountryID>FR</ram:CountryID>
+        </ram:PostalTradeAddress>
+      </ram:SellerTradeParty>
+      <ram:BuyerTradeParty>
+        <ram:Name>RenovBat</ram:Name>
+        <ram:PostalTradeAddress>
+          <ram:LineOne>8 avenue des Batisseurs</ram:LineOne>
+          <ram:PostcodeCode>69000</ram:PostcodeCode>
+          <ram:CityName>Lyon</ram:CityName>
+          <ram:CountryID>FR</ram:CountryID>
+        </ram:PostalTradeAddress>
+      </ram:BuyerTradeParty>
+    </ram:ApplicableHeaderTradeAgreement>
+    <ram:ApplicableHeaderTradeDelivery/>
+    <ram:ApplicableHeaderTradeSettlement>
+      <ram:InvoiceCurrencyCode>EUR</ram:InvoiceCurrencyCode>
+      <ram:ApplicableTradeTax>
+        <ram:CalculatedAmount>3216.67</ram:CalculatedAmount>
+        <ram:TypeCode>VAT</ram:TypeCode>
+        <ram:BasisAmount>16083.33</ram:BasisAmount>
+        <ram:CategoryCode>S</ram:CategoryCode>
+        <ram:RateApplicablePercent>20.00</ram:RateApplicablePercent>
+      </ram:ApplicableTradeTax>
+      <ram:SpecifiedTradePaymentTerms>
+        <ram:DueDateDateTime>
+          <udt:DateTimeString format="102">20260531</udt:DateTimeString>
+        </ram:DueDateDateTime>
+      </ram:SpecifiedTradePaymentTerms>
+      <ram:SpecifiedTradeSettlementHeaderMonetarySummation>
+        <ram:LineTotalAmount>16083.33</ram:LineTotalAmount>
+        <ram:TaxBasisTotalAmount>16083.33</ram:TaxBasisTotalAmount>
+        <ram:TaxTotalAmount currencyID="EUR">3216.67</ram:TaxTotalAmount>
+        <ram:GrandTotalAmount>19300.00</ram:GrandTotalAmount>
+        <ram:DuePayableAmount>19300.00</ram:DuePayableAmount>
+      </ram:SpecifiedTradeSettlementHeaderMonetarySummation>
+    </ram:ApplicableHeaderTradeSettlement>
+  </rsm:SupplyChainTradeTransaction>
+</rsm:CrossIndustryInvoice>
+
+endstream
 endobj
 4 0 obj
-<< /Type /Catalog /Pages 3 0 R >>
+<< /Type /Filespec /F (factur-x.xml) /UF <FEFF006600610063007400750072002D0078002E0078006D006C> /Desc (Factur-X Invoice) /EF << /F 3 0 R /UF 3 0 R >> /AFRelationship /Data >>
+endobj
+5 0 obj
+<< /Type /Page /Parent 6 0 R /Resources << /Font << /F1 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >> /F2 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >> >> >> /MediaBox [0 0 595 842] /Contents 1 0 R >>
+endobj
+6 0 obj
+<< /Type /Pages /Kids [5 0 R] /Count 1 >>
+endobj
+7 0 obj
+<< /Type /Catalog /Pages 6 0 R /Metadata 2 0 R /Names << /EmbeddedFiles << /Names [(factur-x.xml) 4 0 R] >> >> /AF [4 0 R] /MarkInfo << /Marked true >> >>
 endobj
 xref
-0 5
+0 8
 0000000000 65535 f 
-0000000009 00000 n 
-0000001221 00000 n 
-0000001460 00000 n 
-0000001517 00000 n 
+0000000015 00000 n 
+0000001087 00000 n 
+0000001768 00000 n 
+0000010644 00000 n 
+0000010834 00000 n 
+0000011073 00000 n 
+0000011130 00000 n 
 trailer
-<< /Size 5 /Root 4 0 R >>
+<< /Size 8 /Root 7 0 R >>
 startxref
-1566
+11300
 %%EOF

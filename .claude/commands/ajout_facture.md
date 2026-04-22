@@ -18,7 +18,8 @@ Poser les questions suivantes une par une (attendre la réponse avant de passer 
 7. **Montant HT** — en euros (ex: 8000)
 8. **Taux de TVA** — en % (défaut : 20)
 9. **Adresse de la société** (optionnel — laisser vide pour passer)
-10. **SIRET** (optionnel — laisser vide pour passer)
+10. **Code postal et ville** (optionnel — laisser vide pour passer)
+11. **SIRET** (optionnel — laisser vide pour passer)
 
 Calculer automatiquement :
 - Montant TVA = Montant HT × (taux TVA / 100)
@@ -41,107 +42,50 @@ Lire `data/prestataires/prestataires.csv`.
 
 ---
 
-## Étape 3 — Génération du PDF
+## Étape 3 — Génération du PDF Factur-X
 
-Créer le fichier `data/factures/<numero_facture>.pdf` en utilisant le code suivant (à adapter avec les données saisies) :
+Construire le dict JSON suivant avec les données collectées, puis appeler le script :
 
 ```python
-import pathlib
+import json, subprocess
 
-def make_stream(content: str) -> bytes:
-    return content.encode("latin-1", errors="replace")
+inv = {
+    "filename": "<NUMERO>.pdf",          # ex: FAC-2026-004.pdf
+    "id": "<NUMERO>",                    # ex: FAC-2026-004
+    "date": "<YYYYMMDD>",                # convertir JJ/MM/AAAA → AAAAMMJJ
+    "lot": "<LOT>",
+    "seller": {
+        "name": "<NOM SOCIETE>",
+        "siret": "<SIRET>",              # omettre la clé si non fourni
+        "address": "<ADRESSE>",          # omettre si non fourni
+        "postcode": "<CODE POSTAL>",     # omettre si non fourni
+        "city": "<VILLE>",               # omettre si non fourni
+        "country": "FR",
+    },
+    "lines": [
+        {
+            "id": "1",
+            "desc": "<OBJET TRAVAUX>",
+            "qty": 1.0,
+            "unit_price": <MONTANT_HT>,
+            "vat_rate": <TAUX_TVA>,
+            "total_ht": <MONTANT_HT>,
+        }
+    ],
+    "total_ht": <MONTANT_HT>,
+    "total_vat": <MONTANT_TVA>,
+    "total_ttc": <MONTANT_TTC>,
+}
 
-def build_pdf(pages_content: list[str]) -> bytes:
-    objects = []
-    stream_ids, page_ids = [], []
-    for page_text in pages_content:
-        stream_data = make_stream(page_text)
-        stream_obj = f"<< /Length {len(stream_data)} >>\nstream\n".encode() + stream_data + b"\nendstream"
-        objects.append(stream_obj)
-        stream_ids.append(len(objects))
-    for sid in stream_ids:
-        page_obj = (
-            f"<< /Type /Page /Parent 2 0 R "
-            f"/Resources << /Font << /F1 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >> "
-            f"/F2 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >> >> >> "
-            f"/MediaBox [0 0 595 842] /Contents {sid} 0 R >>"
-        ).encode()
-        objects.append(page_obj)
-        page_ids.append(len(objects))
-    kids = " ".join(f"{pid} 0 R" for pid in page_ids)
-    objects.append(f"<< /Type /Pages /Kids [{kids}] /Count {len(page_ids)} >>".encode())
-    pages_id = len(objects)
-    fixed = []
-    for i, obj in enumerate(objects):
-        if (i + 1) in page_ids:
-            obj = obj.replace(b"/Parent 2 0 R", f"/Parent {pages_id} 0 R".encode())
-        fixed.append(obj)
-    objects = fixed
-    objects.append(f"<< /Type /Catalog /Pages {pages_id} 0 R >>".encode())
-    catalog_id = len(objects)
-    body = b"%PDF-1.4\n"
-    offsets = []
-    for i, obj in enumerate(objects):
-        offsets.append(len(body))
-        body += f"{i+1} 0 obj\n".encode() + obj + b"\nendobj\n"
-    xref_pos = len(body)
-    xref = f"xref\n0 {len(objects)+1}\n0000000000 65535 f \n"
-    for off in offsets:
-        xref += f"{off:010d} 00000 n \n"
-    trailer = f"trailer\n<< /Size {len(objects)+1} /Root {catalog_id} 0 R >>\nstartxref\n{xref_pos}\n%%EOF\n"
-    return body + xref.encode() + trailer.encode()
+result = subprocess.run(
+    ["python3", "scripts/generate_factures.py", "--create", json.dumps(inv)],
+    capture_output=True, text=True
+)
+print(result.stdout.strip())  # affiche le chemin du PDF créé
 ```
 
-Contenu de la page PDF (adapter avec les valeurs saisies) :
-
-```
-BT
-/F2 16 Tf
-50 820 Td
-(<NOM SOCIETE>) Tj
-/F1 10 Tf
-0 -18 Td
-(<ADRESSE SI FOURNIE>) Tj
-0 -14 Td
-(<SIRET SI FOURNI>) Tj
-/F2 14 Tf
-0 -45 Td
-(FACTURE) Tj
-/F1 11 Tf
-0 -22 Td
-(Numero        : <NUMERO>) Tj
-0 -16 Td
-(Date          : <DATE>) Tj
-0 -16 Td
-(Client        : RenovBat - 8 avenue des Batisseurs, 69000 Lyon) Tj
-0 -16 Td
-(Lot           : <LOT>) Tj
-/F2 11 Tf
-0 -35 Td
-(Designation) Tj
-300 0 Td
-(Montant) Tj
-/F1 11 Tf
--300 -20 Td
-(<OBJET TRAVAUX>) Tj
-300 0 Td
-(<MONTANT HT> EUR HT) Tj
--300 -18 Td
-(TVA <TAUX>%) Tj
-300 0 Td
-(<MONTANT TVA> EUR) Tj
-/F2 12 Tf
--300 -22 Td
-(TOTAL TTC) Tj
-300 0 Td
-(<MONTANT TTC> EUR) Tj
-/F1 9 Tf
--300 -60 Td
-(Paiement a 30 jours.) Tj
-ET
-```
-
-Formater les montants avec 2 décimales et espace comme séparateur des milliers (ex: `12 500,00`).
+Le script génère un PDF **Factur-X BASIC** (PDF 1.7 + XML CII embarqué).
+La date d'échéance (due_date) est calculée automatiquement à date + 30 jours.
 
 ---
 

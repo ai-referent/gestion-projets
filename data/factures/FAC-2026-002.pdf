@@ -1,76 +1,210 @@
-%PDF-1.4
+%PDF-1.7
+%‚„œ”
 1 0 obj
-<< /Length 792 >>
+<< /Length 795 >>
 stream
 BT
-/F2 14 Tf
-350 820 Td
-(RevetoPower) Tj
-/F1 9 Tf
-0 -15 Td
-(& Associes) Tj
-0 -13 Td
-(17 impasse du Carreau) Tj
-0 -13 Td
-(13001 Marseille) Tj
-0 -13 Td
-(contact@revetopower.fr) Tj
+/F2 16 Tf
+50 820 Td
+(RevetoPower & Associes) Tj
 /F1 10 Tf
-50 -50 Td
-(Destinataire : RenovBat) Tj
+0 -18 Td
+(17 impasse du Carreau - 13001 Marseille) Tj
 0 -14 Td
-(             8 avenue des Batisseurs) Tj
-0 -14 Td
-(             69000 Lyon) Tj
-/F2 18 Tf
-0 -50 Td
-(FACTURE N FAC-2026-002) Tj
+() Tj
+/F2 14 Tf
+0 -45 Td
+(FACTURE) Tj
 /F1 11 Tf
-0 -25 Td
-(Date d'emission : 28 mars 2026) Tj
+0 -22 Td
+(Numero        : FAC-2026-002) Tj
+0 -16 Td
+(Date          : 28 mars 2026) Tj
+0 -16 Td
+(Client        : RenovBat - 8 avenue des Batisseurs, 69000 Lyon) Tj
+0 -16 Td
+(Lot           : isolation_thermique) Tj
 /F2 11 Tf
-0 -40 Td
-(Prestation) Tj
-250 0 Td
-(Montant TTC) Tj
+0 -35 Td
+(Designation) Tj
+300 0 Td
+(Montant HT) Tj
 /F1 11 Tf
--250 -20 Td
+-300 -20 Td
 (Pose revetement isolant - facade Nord et Sud) Tj
-250 0 Td
-( 15 625,00 EUR) Tj
--250 -18 Td
+300 0 Td
+(13 020,83 EUR) Tj
+/F1 11 Tf
+-300 -16 Td
 (Fourniture materiaux incluse) Tj
-250 0 Td
-(  3 125,00 EUR) Tj
+300 0 Td
+(2 604,17 EUR) Tj
+-300 -16 Td
+(TVA 20%) Tj
+300 0 Td
+(3 125,00 EUR) Tj
 /F2 12 Tf
--250 -30 Td
+-300 -22 Td
 (TOTAL TTC) Tj
-250 0 Td
-( 18 750,00 EUR) Tj
-/F1 8 Tf
--250 -70 Td
-(Conditions : net 30 jours - Pas d'escompte) Tj
+300 0 Td
+(18 750,00 EUR) Tj
+/F1 9 Tf
+-300 -60 Td
+(Paiement a 30 jours.) Tj
 ET
 endstream
 endobj
 2 0 obj
-<< /Type /Page /Parent 3 0 R /Resources << /Font << /F1 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >> /F2 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >> >> >> /MediaBox [0 0 595 842] /Contents 1 0 R >>
+<< /Type /Metadata /Subtype /XML /Length 600 >>
+stream
+Ôªø<?xpacket begin="Ôªø" id="W5M0MpCehiHzreSzNTczkc9d"?><x:xmpmeta xmlns:x="adobe:ns:meta/"><rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"><rdf:Description rdf:about="" xmlns:pdfaid="http://www.aiim.org/pdfa/ns/id/" xmlns:fx="urn:factur-x:pdfa:CrossIndustryDocument:invoice:1p0#"><pdfaid:part>3</pdfaid:part><pdfaid:conformance>B</pdfaid:conformance><fx:DocumentType>INVOICE</fx:DocumentType><fx:DocumentFileName>factur-x.xml</fx:DocumentFileName><fx:Version>1.0</fx:Version><fx:ConformanceLevel>BASIC</fx:ConformanceLevel></rdf:Description></rdf:RDF></x:xmpmeta><?xpacket end="w"?>
+endstream
 endobj
 3 0 obj
-<< /Type /Pages /Kids [2 0 R] /Count 1 >>
+<< /Type /EmbeddedFile /Subtype /text#2Fxml /Params << /Size 5198 /CheckSum <5c7025b0706f5d4f60dd138658b413a0> >> /Length 5198 >>
+stream
+<?xml version="1.0" encoding="UTF-8"?>
+<rsm:CrossIndustryInvoice
+  xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100"
+  xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100"
+  xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100">
+  <rsm:ExchangedDocumentContext>
+    <ram:GuidelineSpecifiedDocumentContextParameter>
+      <ram:ID>urn:factur-x.eu:1p0:basic</ram:ID>
+    </ram:GuidelineSpecifiedDocumentContextParameter>
+  </rsm:ExchangedDocumentContext>
+  <rsm:ExchangedDocument>
+    <ram:ID>FAC-2026-002</ram:ID>
+    <ram:TypeCode>380</ram:TypeCode>
+    <ram:IssueDateTime>
+      <udt:DateTimeString format="102">20260328</udt:DateTimeString>
+    </ram:IssueDateTime>
+  </rsm:ExchangedDocument>
+  <rsm:SupplyChainTradeTransaction>
+  <ram:IncludedSupplyChainTradeLineItem>
+    <ram:AssociatedDocumentLineDocument>
+      <ram:LineID>1</ram:LineID>
+    </ram:AssociatedDocumentLineDocument>
+    <ram:SpecifiedTradeProduct>
+      <ram:Name>Pose revetement isolant - facade Nord et Sud</ram:Name>
+    </ram:SpecifiedTradeProduct>
+    <ram:SpecifiedLineTradeAgreement>
+      <ram:NetPriceProductTradePrice>
+        <ram:ChargeAmount>13020.83</ram:ChargeAmount>
+      </ram:NetPriceProductTradePrice>
+    </ram:SpecifiedLineTradeAgreement>
+    <ram:SpecifiedLineTradeDelivery>
+      <ram:BilledQuantity unitCode="C62">1.00</ram:BilledQuantity>
+    </ram:SpecifiedLineTradeDelivery>
+    <ram:SpecifiedLineTradeSettlement>
+      <ram:ApplicableTradeTax>
+        <ram:TypeCode>VAT</ram:TypeCode>
+        <ram:CategoryCode>S</ram:CategoryCode>
+        <ram:RateApplicablePercent>20.00</ram:RateApplicablePercent>
+      </ram:ApplicableTradeTax>
+      <ram:SpecifiedTradeSettlementLineMonetarySummation>
+        <ram:LineTotalAmount>13020.83</ram:LineTotalAmount>
+      </ram:SpecifiedTradeSettlementLineMonetarySummation>
+    </ram:SpecifiedLineTradeSettlement>
+  </ram:IncludedSupplyChainTradeLineItem>
+  <ram:IncludedSupplyChainTradeLineItem>
+    <ram:AssociatedDocumentLineDocument>
+      <ram:LineID>2</ram:LineID>
+    </ram:AssociatedDocumentLineDocument>
+    <ram:SpecifiedTradeProduct>
+      <ram:Name>Fourniture materiaux incluse</ram:Name>
+    </ram:SpecifiedTradeProduct>
+    <ram:SpecifiedLineTradeAgreement>
+      <ram:NetPriceProductTradePrice>
+        <ram:ChargeAmount>2604.17</ram:ChargeAmount>
+      </ram:NetPriceProductTradePrice>
+    </ram:SpecifiedLineTradeAgreement>
+    <ram:SpecifiedLineTradeDelivery>
+      <ram:BilledQuantity unitCode="C62">1.00</ram:BilledQuantity>
+    </ram:SpecifiedLineTradeDelivery>
+    <ram:SpecifiedLineTradeSettlement>
+      <ram:ApplicableTradeTax>
+        <ram:TypeCode>VAT</ram:TypeCode>
+        <ram:CategoryCode>S</ram:CategoryCode>
+        <ram:RateApplicablePercent>20.00</ram:RateApplicablePercent>
+      </ram:ApplicableTradeTax>
+      <ram:SpecifiedTradeSettlementLineMonetarySummation>
+        <ram:LineTotalAmount>2604.17</ram:LineTotalAmount>
+      </ram:SpecifiedTradeSettlementLineMonetarySummation>
+    </ram:SpecifiedLineTradeSettlement>
+  </ram:IncludedSupplyChainTradeLineItem>
+    <ram:ApplicableHeaderTradeAgreement>
+      <ram:SellerTradeParty>
+        <ram:Name>RevetoPower &amp; Associes</ram:Name>
+        <ram:PostalTradeAddress>
+          <ram:LineOne>17 impasse du Carreau</ram:LineOne>
+          <ram:PostcodeCode>13001</ram:PostcodeCode>
+          <ram:CityName>Marseille</ram:CityName>
+          <ram:CountryID>FR</ram:CountryID>
+        </ram:PostalTradeAddress>
+      </ram:SellerTradeParty>
+      <ram:BuyerTradeParty>
+        <ram:Name>RenovBat</ram:Name>
+        <ram:PostalTradeAddress>
+          <ram:LineOne>8 avenue des Batisseurs</ram:LineOne>
+          <ram:PostcodeCode>69000</ram:PostcodeCode>
+          <ram:CityName>Lyon</ram:CityName>
+          <ram:CountryID>FR</ram:CountryID>
+        </ram:PostalTradeAddress>
+      </ram:BuyerTradeParty>
+    </ram:ApplicableHeaderTradeAgreement>
+    <ram:ApplicableHeaderTradeDelivery/>
+    <ram:ApplicableHeaderTradeSettlement>
+      <ram:InvoiceCurrencyCode>EUR</ram:InvoiceCurrencyCode>
+      <ram:ApplicableTradeTax>
+        <ram:CalculatedAmount>3125.00</ram:CalculatedAmount>
+        <ram:TypeCode>VAT</ram:TypeCode>
+        <ram:BasisAmount>15625.00</ram:BasisAmount>
+        <ram:CategoryCode>S</ram:CategoryCode>
+        <ram:RateApplicablePercent>20.00</ram:RateApplicablePercent>
+      </ram:ApplicableTradeTax>
+      <ram:SpecifiedTradePaymentTerms>
+        <ram:DueDateDateTime>
+          <udt:DateTimeString format="102">20260427</udt:DateTimeString>
+        </ram:DueDateDateTime>
+      </ram:SpecifiedTradePaymentTerms>
+      <ram:SpecifiedTradeSettlementHeaderMonetarySummation>
+        <ram:LineTotalAmount>15625.00</ram:LineTotalAmount>
+        <ram:TaxBasisTotalAmount>15625.00</ram:TaxBasisTotalAmount>
+        <ram:TaxTotalAmount currencyID="EUR">3125.00</ram:TaxTotalAmount>
+        <ram:GrandTotalAmount>18750.00</ram:GrandTotalAmount>
+        <ram:DuePayableAmount>18750.00</ram:DuePayableAmount>
+      </ram:SpecifiedTradeSettlementHeaderMonetarySummation>
+    </ram:ApplicableHeaderTradeSettlement>
+  </rsm:SupplyChainTradeTransaction>
+</rsm:CrossIndustryInvoice>
+
+endstream
 endobj
 4 0 obj
-<< /Type /Catalog /Pages 3 0 R >>
+<< /Type /Filespec /F (factur-x.xml) /UF <FEFF006600610063007400750072002D0078002E0078006D006C> /Desc (Factur-X Invoice) /EF << /F 3 0 R /UF 3 0 R >> /AFRelationship /Data >>
+endobj
+5 0 obj
+<< /Type /Page /Parent 6 0 R /Resources << /Font << /F1 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >> /F2 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >> >> >> /MediaBox [0 0 595 842] /Contents 1 0 R >>
+endobj
+6 0 obj
+<< /Type /Pages /Kids [5 0 R] /Count 1 >>
+endobj
+7 0 obj
+<< /Type /Catalog /Pages 6 0 R /Metadata 2 0 R /Names << /EmbeddedFiles << /Names [(factur-x.xml) 4 0 R] >> >> /AF [4 0 R] /MarkInfo << /Marked true >> >>
 endobj
 xref
-0 5
+0 8
 0000000000 65535 f 
-0000000009 00000 n 
-0000000852 00000 n 
-0000001091 00000 n 
-0000001148 00000 n 
+0000000015 00000 n 
+0000000861 00000 n 
+0000001542 00000 n 
+0000006903 00000 n 
+0000007093 00000 n 
+0000007332 00000 n 
+0000007389 00000 n 
 trailer
-<< /Size 5 /Root 4 0 R >>
+<< /Size 8 /Root 7 0 R >>
 startxref
-1197
+7559
 %%EOF
