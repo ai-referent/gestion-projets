@@ -1,67 +1,182 @@
-%PDF-1.4
+%PDF-1.7
+%‚„œ”
 1 0 obj
-<< /Length 666 >>
+<< /Length 722 >>
 stream
 BT
 /F2 16 Tf
-180 800 Td
+50 820 Td
 (Platr'O'Matic SARL) Tj
 /F1 10 Tf
-0 -20 Td
-(42 rue du Crepissage - 75011 Paris | SIRET : 123 456 789 00012) Tj
-/F2 13 Tf
--80 -50 Td
+0 -18 Td
+(42 rue du Crepissage - 75011 Paris) Tj
+0 -14 Td
+(SIRET : 12345678900012) Tj
+/F2 14 Tf
+0 -45 Td
 (FACTURE) Tj
 /F1 11 Tf
-0 -25 Td
-(Numero       : FAC-2026-001) Tj
-0 -18 Td
-(Date         : 15 mars 2026) Tj
-0 -18 Td
-(Client       : RenovBat - 8 avenue des Batisseurs, 69000 Lyon) Tj
+0 -22 Td
+(Numero        : FAC-2026-001) Tj
+0 -16 Td
+(Date          : 15 mars 2026) Tj
+0 -16 Td
+(Client        : RenovBat - 8 avenue des Batisseurs, 69000 Lyon) Tj
+0 -16 Td
+(Lot           : isolation_thermique) Tj
 /F2 11 Tf
-0 -40 Td
-(DESIGNATION) Tj
-200 0 Td
-(MONTANT HT) Tj
+0 -35 Td
+(Designation) Tj
+300 0 Td
+(Montant HT) Tj
 /F1 11 Tf
--200 -20 Td
+-300 -20 Td
 (Travaux d'aplanissement de facade - Lot A) Tj
-200 0 Td
+300 0 Td
 (10 416,67 EUR) Tj
--200 -35 Td
-(TVA 20 %) Tj
-200 0 Td
-(  2 083,33 EUR) Tj
+-300 -16 Td
+(TVA 20%) Tj
+300 0 Td
+(2 083,33 EUR) Tj
 /F2 12 Tf
--200 -25 Td
+-300 -22 Td
 (TOTAL TTC) Tj
-200 0 Td
+300 0 Td
 (12 500,00 EUR) Tj
 /F1 9 Tf
--200 -60 Td
+-300 -60 Td
 (Paiement a 30 jours.) Tj
 ET
 endstream
 endobj
 2 0 obj
-<< /Type /Page /Parent 3 0 R /Resources << /Font << /F1 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >> /F2 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >> >> >> /MediaBox [0 0 595 842] /Contents 1 0 R >>
+<< /Type /Metadata /Subtype /XML /Length 600 >>
+stream
+Ôªø<?xpacket begin="Ôªø" id="W5M0MpCehiHzreSzNTczkc9d"?><x:xmpmeta xmlns:x="adobe:ns:meta/"><rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"><rdf:Description rdf:about="" xmlns:pdfaid="http://www.aiim.org/pdfa/ns/id/" xmlns:fx="urn:factur-x:pdfa:CrossIndustryDocument:invoice:1p0#"><pdfaid:part>3</pdfaid:part><pdfaid:conformance>B</pdfaid:conformance><fx:DocumentType>INVOICE</fx:DocumentType><fx:DocumentFileName>factur-x.xml</fx:DocumentFileName><fx:Version>1.0</fx:Version><fx:ConformanceLevel>BASIC</fx:ConformanceLevel></rdf:Description></rdf:RDF></x:xmpmeta><?xpacket end="w"?>
+endstream
 endobj
 3 0 obj
-<< /Type /Pages /Kids [2 0 R] /Count 1 >>
+<< /Type /EmbeddedFile /Subtype /text#2Fxml /Params << /Size 4188 /CheckSum <e21dfffab3a2bd19a5aded1968f220f0> >> /Length 4188 >>
+stream
+<?xml version="1.0" encoding="UTF-8"?>
+<rsm:CrossIndustryInvoice
+  xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100"
+  xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100"
+  xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100">
+  <rsm:ExchangedDocumentContext>
+    <ram:GuidelineSpecifiedDocumentContextParameter>
+      <ram:ID>urn:factur-x.eu:1p0:basic</ram:ID>
+    </ram:GuidelineSpecifiedDocumentContextParameter>
+  </rsm:ExchangedDocumentContext>
+  <rsm:ExchangedDocument>
+    <ram:ID>FAC-2026-001</ram:ID>
+    <ram:TypeCode>380</ram:TypeCode>
+    <ram:IssueDateTime>
+      <udt:DateTimeString format="102">20260315</udt:DateTimeString>
+    </ram:IssueDateTime>
+  </rsm:ExchangedDocument>
+  <rsm:SupplyChainTradeTransaction>
+  <ram:IncludedSupplyChainTradeLineItem>
+    <ram:AssociatedDocumentLineDocument>
+      <ram:LineID>1</ram:LineID>
+    </ram:AssociatedDocumentLineDocument>
+    <ram:SpecifiedTradeProduct>
+      <ram:Name>Travaux d&apos;aplanissement de facade - Lot A</ram:Name>
+    </ram:SpecifiedTradeProduct>
+    <ram:SpecifiedLineTradeAgreement>
+      <ram:NetPriceProductTradePrice>
+        <ram:ChargeAmount>10416.67</ram:ChargeAmount>
+      </ram:NetPriceProductTradePrice>
+    </ram:SpecifiedLineTradeAgreement>
+    <ram:SpecifiedLineTradeDelivery>
+      <ram:BilledQuantity unitCode="C62">1.00</ram:BilledQuantity>
+    </ram:SpecifiedLineTradeDelivery>
+    <ram:SpecifiedLineTradeSettlement>
+      <ram:ApplicableTradeTax>
+        <ram:TypeCode>VAT</ram:TypeCode>
+        <ram:CategoryCode>S</ram:CategoryCode>
+        <ram:RateApplicablePercent>20.00</ram:RateApplicablePercent>
+      </ram:ApplicableTradeTax>
+      <ram:SpecifiedTradeSettlementLineMonetarySummation>
+        <ram:LineTotalAmount>10416.67</ram:LineTotalAmount>
+      </ram:SpecifiedTradeSettlementLineMonetarySummation>
+    </ram:SpecifiedLineTradeSettlement>
+  </ram:IncludedSupplyChainTradeLineItem>
+    <ram:ApplicableHeaderTradeAgreement>
+      <ram:SellerTradeParty>
+        <ram:Name>Platr&apos;O&apos;Matic SARL</ram:Name>
+      <ram:SpecifiedLegalOrganization>
+        <ram:ID schemeID="0002">12345678900012</ram:ID>
+      </ram:SpecifiedLegalOrganization>
+        <ram:PostalTradeAddress>
+          <ram:LineOne>42 rue du Crepissage</ram:LineOne>
+          <ram:PostcodeCode>75011</ram:PostcodeCode>
+          <ram:CityName>Paris</ram:CityName>
+          <ram:CountryID>FR</ram:CountryID>
+        </ram:PostalTradeAddress>
+      </ram:SellerTradeParty>
+      <ram:BuyerTradeParty>
+        <ram:Name>RenovBat</ram:Name>
+        <ram:PostalTradeAddress>
+          <ram:LineOne>8 avenue des Batisseurs</ram:LineOne>
+          <ram:PostcodeCode>69000</ram:PostcodeCode>
+          <ram:CityName>Lyon</ram:CityName>
+          <ram:CountryID>FR</ram:CountryID>
+        </ram:PostalTradeAddress>
+      </ram:BuyerTradeParty>
+    </ram:ApplicableHeaderTradeAgreement>
+    <ram:ApplicableHeaderTradeDelivery/>
+    <ram:ApplicableHeaderTradeSettlement>
+      <ram:InvoiceCurrencyCode>EUR</ram:InvoiceCurrencyCode>
+      <ram:ApplicableTradeTax>
+        <ram:CalculatedAmount>2083.33</ram:CalculatedAmount>
+        <ram:TypeCode>VAT</ram:TypeCode>
+        <ram:BasisAmount>10416.67</ram:BasisAmount>
+        <ram:CategoryCode>S</ram:CategoryCode>
+        <ram:RateApplicablePercent>20.00</ram:RateApplicablePercent>
+      </ram:ApplicableTradeTax>
+      <ram:SpecifiedTradePaymentTerms>
+        <ram:DueDateDateTime>
+          <udt:DateTimeString format="102">20260414</udt:DateTimeString>
+        </ram:DueDateDateTime>
+      </ram:SpecifiedTradePaymentTerms>
+      <ram:SpecifiedTradeSettlementHeaderMonetarySummation>
+        <ram:LineTotalAmount>10416.67</ram:LineTotalAmount>
+        <ram:TaxBasisTotalAmount>10416.67</ram:TaxBasisTotalAmount>
+        <ram:TaxTotalAmount currencyID="EUR">2083.33</ram:TaxTotalAmount>
+        <ram:GrandTotalAmount>12500.00</ram:GrandTotalAmount>
+        <ram:DuePayableAmount>12500.00</ram:DuePayableAmount>
+      </ram:SpecifiedTradeSettlementHeaderMonetarySummation>
+    </ram:ApplicableHeaderTradeSettlement>
+  </rsm:SupplyChainTradeTransaction>
+</rsm:CrossIndustryInvoice>
+
+endstream
 endobj
 4 0 obj
-<< /Type /Catalog /Pages 3 0 R >>
+<< /Type /Filespec /F (factur-x.xml) /UF <FEFF006600610063007400750072002D0078002E0078006D006C> /Desc (Factur-X Invoice) /EF << /F 3 0 R /UF 3 0 R >> /AFRelationship /Data >>
+endobj
+5 0 obj
+<< /Type /Page /Parent 6 0 R /Resources << /Font << /F1 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >> /F2 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >> >> >> /MediaBox [0 0 595 842] /Contents 1 0 R >>
+endobj
+6 0 obj
+<< /Type /Pages /Kids [5 0 R] /Count 1 >>
+endobj
+7 0 obj
+<< /Type /Catalog /Pages 6 0 R /Metadata 2 0 R /Names << /EmbeddedFiles << /Names [(factur-x.xml) 4 0 R] >> >> /AF [4 0 R] /MarkInfo << /Marked true >> >>
 endobj
 xref
-0 5
+0 8
 0000000000 65535 f 
-0000000009 00000 n 
-0000000726 00000 n 
-0000000965 00000 n 
-0000001022 00000 n 
+0000000015 00000 n 
+0000000788 00000 n 
+0000001469 00000 n 
+0000005820 00000 n 
+0000006010 00000 n 
+0000006249 00000 n 
+0000006306 00000 n 
 trailer
-<< /Size 5 /Root 4 0 R >>
+<< /Size 8 /Root 7 0 R >>
 startxref
-1071
+6476
 %%EOF
