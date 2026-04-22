@@ -16,6 +16,8 @@ Les fichiers suivants vont être supprimés :
   - data/fiche_navette/navette_*.txt
   - data/fiche_navette/rejet_*.txt
   - data/bons_paiement/bon_*.txt
+  - data/mails/mail_*.txt
+  - data/vue_globale/recap_*.txt
 
 Les factures PDF dans data/factures/ seront préservées.
 
@@ -38,6 +40,8 @@ patterns = [
     "fiche_navette/navette_*.txt",
     "fiche_navette/rejet_*.txt",
     "bons_paiement/bon_*.txt",
+    "mails/mail_*.txt",
+    "vue_globale/recap_*.txt",
 ]
 deleted = []
 for pattern in patterns:

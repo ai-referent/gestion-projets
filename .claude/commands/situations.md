@@ -179,7 +179,7 @@ Date de mise en paiement : <date du jour + 30 jours, JJ/MM/AAAA>
 ========================================
 ```
 
-Puis afficher le message de transmission à IMMOSOCIAL :
+Puis composer le message de transmission à IMMOSOCIAL et le stocker dans `data/mails/mail_<ref>.txt` :
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -196,6 +196,8 @@ RenovBat
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
+Créer `data/mails/` si absent. Afficher le contenu du mail à l'écran après sauvegarde.
+
 ---
 
 ## Étape 6 — Récapitulatif
@@ -205,6 +207,37 @@ Afficher un tableau de toutes les factures traitées dans cette session :
 | Référence | Société | Lot | Montant TTC | Statut |
 |---|---|---|---|---|
 | FAC-... | ... | ... | ... EUR | ✓ Approuvée / ✗ Rejetée |
+
+Puis sauvegarder ce tableau et un graphique de consommation budgétaire dans `data/vue_globale/recap_<AAAAMMJJ>.txt` :
+
+```
+========================================
+RÉCAPITULATIF — PROJET renovation_2026
+========================================
+Date : <JJ/MM/AAAA>
+
+--- Factures traitées ---
+| Référence | Société | Lot | Montant TTC | Statut |
+|...|...|...|...|...|
+
+--- Consommation budgétaire par lot ---
+
+<Pour chaque lot, calculer : engagé = somme des navettes approuvées,
+ budget = montant_global du lot, pct = engagé / budget * 100>
+
+isolation_thermique
+  Engagé  : XX XXX,XX EUR / YY XXX,XX EUR (PP %)
+  [████████░░░░░░░░░░░░] PP %
+
+renovation_chauffage
+  Engagé  : XX XXX,XX EUR / YY XXX,XX EUR (PP %)
+  [████████████░░░░░░░░] PP %
+
+(barre de 20 caractères : █ pour chaque 5 % consommé, arrondi)
+========================================
+```
+
+Créer `data/vue_globale/` si absent.
 
 ---
 
