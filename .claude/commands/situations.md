@@ -19,13 +19,39 @@ Puis liste tous les fichiers `*.pdf` dans `data/factures/`.
 
 ## Étape 2 — Parser chaque facture PDF
 
-Pour chaque PDF, extrais les champs depuis les streams PDF (chaînes entre parenthèses dans les lignes `Tj`) :
+Pour chaque PDF, tente d'abord d'extraire les données depuis le XML Factur-X embarqué
+(via `xml.etree.ElementTree`), et utilise le parsing des streams PDF en fallback.
 
 ```python
-import re, pathlib
+import re, pathlib, xml.etree.ElementTree as ET
 
-def parse_facture(path):
-    data = pathlib.Path(path).read_bytes()
+_NS = {
+    "rsm": "urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100",
+    "ram": "urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100",
+    "udt": "urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100",
+}
+_MOIS = ["","janvier","fevrier","mars","avril","mai","juin",
+         "juillet","aout","septembre","octobre","novembre","decembre"]
+
+def _parse_facturx_xml(data):
+    xml_m = re.search(b'<rsm:CrossIndustryInvoice.*?</rsm:CrossIndustryInvoice>', data, re.DOTALL)
+    if not xml_m:
+        return None
+    try:
+        root = ET.fromstring(xml_m.group(0).decode('utf-8'))
+    except ET.ParseError:
+        return None
+    inv_id = root.findtext("rsm:ExchangedDocument/ram:ID", namespaces=_NS)
+    d      = root.findtext("rsm:ExchangedDocument/ram:IssueDateTime/udt:DateTimeString", namespaces=_NS)
+    seller = root.findtext(".//ram:SellerTradeParty/ram:Name", namespaces=_NS)
+    total  = root.findtext(".//ram:GrandTotalAmount", namespaces=_NS)
+    if not all([inv_id, d, seller, total]):
+        return None
+    date_fr = f"{int(d[6:8])} {_MOIS[int(d[4:6])]} {d[:4]}"
+    return {"numero": inv_id.strip(), "date": date_fr,
+            "societe": seller.strip(), "montant_ttc": float(total.strip())}
+
+def _parse_pdf_streams(data):
     streams = re.findall(b'stream\n(.*?)\nendstream', data, re.DOTALL)
     texts = []
     for s in streams:
@@ -33,14 +59,37 @@ def parse_facture(path):
             m = re.search(r'\(([^)]+)\)', line)
             if m:
                 texts.append(m.group(1).strip())
-    return texts
+    numero_raw = next((t for t in texts if 'FAC-' in t), None)
+    date_raw   = next((t for t in texts if 'Date' in t), None)
+    societe    = next((t for t in texts if len(t) > 5 and 'avenue' not in t.lower()
+                       and 'SIRET' not in t and 'FAC-' not in t
+                       and 'Date' not in t and 'Client' not in t), None)
+    ttc_idx    = next((i for i, t in enumerate(texts) if 'TOTAL TTC' in t), None)
+    if not all([numero_raw, date_raw, societe, ttc_idx is not None]):
+        return None
+    numero  = re.sub(r'^[^:]*:\s*', '', numero_raw).strip()
+    date    = re.sub(r'^[Dd]ate[^:]*:\s*', '', date_raw).strip()
+    amt_str = texts[ttc_idx + 1] if ttc_idx + 1 < len(texts) else ""
+    amt_str = re.sub(r'[^\d,.]', '', amt_str).replace(',', '.')
+    try:
+        montant = float(amt_str)
+    except ValueError:
+        return None
+    return {"numero": numero, "date": date, "societe": societe, "montant_ttc": montant}
+
+def parse_facture(path):
+    data = pathlib.Path(path).read_bytes()
+    result = _parse_facturx_xml(data) or _parse_pdf_streams(data)
+    if result is None:
+        raise ValueError(f"Impossible de parser {path}")
+    return result
 ```
 
-Cherche dans `texts` :
-- Numéro de facture : premier élément contenant `FAC-`
-- Date : élément contenant `Date` — supprimer le préfixe label avec `re.sub(r"^[Dd]ate[^:]*:\s*", "", t).strip()`
-- Société : premier texte > 5 caractères, pas une adresse ni un SIRET
-- Montant TTC : élément contenant `TOTAL TTC`, extraire le nombre
+Utilise directement les champs du dict retourné :
+- `result["numero"]`      → numéro de facture (ex: `FAC-2026-001`)
+- `result["date"]`        → date lisible (ex: `15 mars 2026`)
+- `result["societe"]`     → nom de la société émettrice
+- `result["montant_ttc"]` → montant TTC en float (ex: `12500.0`)
 
 ---
 
