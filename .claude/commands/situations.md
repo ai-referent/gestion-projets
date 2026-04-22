@@ -208,7 +208,9 @@ Afficher un tableau de toutes les factures traitées dans cette session :
 |---|---|---|---|---|
 | FAC-... | ... | ... | ... EUR | ✓ Approuvée / ✗ Rejetée |
 
-Puis sauvegarder ce tableau et un graphique de consommation budgétaire dans `data/vue_globale/recap_<AAAAMMJJ>.txt` :
+Puis générer trois fichiers dans `data/vue_globale/` (créer le répertoire si absent) :
+
+### a) Récapitulatif texte — `recap_<AAAAMMJJ>.txt`
 
 ```
 ========================================
@@ -221,23 +223,99 @@ Date : <JJ/MM/AAAA>
 |...|...|...|...|...|
 
 --- Consommation budgétaire par lot ---
-
-<Pour chaque lot, calculer : engagé = somme des navettes approuvées,
- budget = montant_global du lot, pct = engagé / budget * 100>
-
-isolation_thermique
-  Engagé  : XX XXX,XX EUR / YY XXX,XX EUR (PP %)
-  [████████░░░░░░░░░░░░] PP %
-
-renovation_chauffage
-  Engagé  : XX XXX,XX EUR / YY XXX,XX EUR (PP %)
-  [████████████░░░░░░░░] PP %
-
-(barre de 20 caractères : █ pour chaque 5 % consommé, arrondi)
+isolation_thermique  : XX XXX € / YY XXX € (PP %)
+renovation_chauffage : XX XXX € / YY XXX € (PP %)
 ========================================
 ```
 
-Créer `data/vue_globale/` si absent.
+### b) Graphique PNG — `budget_<AAAAMMJJ>.png`
+
+```python
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+from pathlib import Path
+
+# lots = dict {nom_lot: {"budget": float, "engage": float}}
+# (engage = somme des navettes approuvées pour ce lot, toutes sessions confondues)
+
+labels  = list(lots.keys())
+budgets = [lots[l]["budget"] for l in labels]
+engages = [lots[l]["engage"] for l in labels]
+pcts    = [e / b * 100 for e, b in zip(engages, budgets)]
+colors  = ["#e74c3c" if p > 90 else "#e67e22" if p > 70 else "#2ecc71" for p in pcts]
+
+fig, ax = plt.subplots(figsize=(9, 4))
+y = range(len(labels))
+ax.barh(y, engages, color=colors, height=0.5, label="Engagé")
+ax.barh(y, [b - e for b, e in zip(budgets, engages)],
+        left=engages, color="#ecf0f1", height=0.5, edgecolor="#bdc3c7", label="Disponible")
+for i, (e, b, p) in enumerate(zip(engages, budgets, pcts)):
+    ax.text(b + 500, i, f"{p:.1f} %  ({e:,.0f} / {b:,.0f} €)".replace(",", " "),
+            va="center", fontsize=9)
+ax.set_yticks(list(y))
+ax.set_yticklabels([l.replace("_", " ").title() for l in labels])
+ax.set_xlabel("Montant (EUR)")
+ax.set_title("Consommation budgétaire — Projet renovation_2026", fontsize=12, fontweight="bold")
+ax.set_xlim(0, max(budgets) * 1.45)
+ax.legend(loc="lower right", fontsize=8)
+ax.grid(axis="x", linestyle="--", alpha=0.4)
+fig.tight_layout()
+fig.savefig(Path("data/vue_globale") / f"budget_{yyyymmdd}.png", dpi=130)
+plt.close()
+```
+
+### c) Classeur Excel — `budget_<AAAAMMJJ>.xlsx`
+
+```python
+import openpyxl
+from openpyxl.chart import BarChart, Reference
+from openpyxl.styles import Font, PatternFill, Alignment
+
+wb = openpyxl.Workbook()
+
+# Feuille 1 : tableau des factures de la session
+ws1 = wb.active
+ws1.title = "Factures"
+ws1.append(["Référence", "Société", "Lot", "Montant TTC (€)", "Statut"])
+for cell in ws1[1]:
+    cell.font = Font(bold=True, color="FFFFFF")
+    cell.fill = PatternFill("solid", fgColor="2C3E50")
+    cell.alignment = Alignment(horizontal="center")
+for f in factures_session:   # liste des dicts {ref, societe, lot, ttc, statut}
+    ws1.append([f["ref"], f["societe"], f["lot"], f["ttc"],
+                "✓ Approuvée" if f["statut"] == "Approuvée" else "✗ Rejetée"])
+for col, w in zip("ABCDE", [16, 26, 24, 18, 14]):
+    ws1.column_dimensions[col].width = w
+
+# Feuille 2 : budget par lot + graphique en barres empilées
+ws2 = wb.create_sheet("Budget")
+ws2.append(["Lot", "Budget (€)", "Engagé (€)", "Disponible (€)", "% consommé"])
+for cell in ws2[1]:
+    cell.font = Font(bold=True, color="FFFFFF")
+    cell.fill = PatternFill("solid", fgColor="2C3E50")
+for lot, v in lots.items():
+    ws2.append([lot, v["budget"], v["engage"],
+                v["budget"] - v["engage"],
+                round(v["engage"] / v["budget"] * 100, 1)])
+for col, w in zip("ABCDE", [26, 16, 16, 16, 14]):
+    ws2.column_dimensions[col].width = w
+
+chart = BarChart()
+chart.type = "bar"
+chart.grouping = "stacked"
+chart.title = "Budget vs Engagé par lot"
+chart.width, chart.height = 18, 10
+data = Reference(ws2, min_col=2, max_col=4, min_row=1, max_row=1 + len(lots))
+cats = Reference(ws2, min_col=1, min_row=2, max_row=1 + len(lots))
+chart.add_data(data, titles_from_data=True)
+chart.set_categories(cats)
+ws2.add_chart(chart, "F2")
+
+wb.save(Path("data/vue_globale") / f"budget_{yyyymmdd}.xlsx")
+```
+
+`yyyymmdd` = date du jour au format `AAAAMMJJ` (depuis `currentDate`).
 
 ---
 
