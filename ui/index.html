@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RenovBat 2026 — Gestion des factures</title>
+  <style>
+    /* ── Reset & base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #ede9f5;
+      color: #1e1b4b;
+      min-height: 100vh;
+    }
+
+    /* ── Header partagé ── */
+    header {
+      background: #1e1b4b;
+      color: white;
+      padding: 1.2rem 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      box-shadow: 0 2px 12px rgba(30,27,75,0.18);
+    }
+    header .back-btn {
+      background: rgba(255,255,255,0.15);
+      border: none;
+      color: white;
+      padding: 0.4rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background 0.15s;
+      display: none;
+    }
+    header .back-btn:hover { background: rgba(255,255,255,0.25); }
+    header h1 { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    header .subtitle { font-size: 0.85rem; opacity: 0.7; }
+
+    /* ── Pages (show/hide) ── */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* ══════════════════════════════════════
+       PAGE : ACCUEIL
+    ══════════════════════════════════════ */
+    #page-home .hero {
+      text-align: center;
+      padding: 3.5rem 1rem 2rem;
+    }
+    #page-home .hero h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #1e1b4b;
+      margin-bottom: 0.5rem;
+    }
+    #page-home .hero p {
+      color: #6b6b9a;
+      font-size: 1.05rem;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 2rem 3rem;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 22px;
+      padding: 2.2rem 2rem;
+      cursor: pointer;
+      border: none;
+      box-shadow: 6px 6px 18px rgba(160,140,210,0.18),
+                  -3px -3px 10px rgba(255,255,255,0.85);
+      transition: box-shadow 0.2s ease, transform 0.18s ease;
+      user-select: none;
+    }
+    .card:hover {
+      box-shadow: 10px 10px 28px rgba(140,120,200,0.22),
+                  -4px -4px 14px rgba(255,255,255,0.9);
+      transform: translateY(-3px);
+    }
+    .card:active {
+      box-shadow: 3px 3px 10px rgba(140,120,200,0.28),
+                  -1px -1px 6px rgba(255,255,255,0.7);
+      transform: translateY(1px);
+    }
+    .card-icon {
+      font-size: 2.2rem;
+      margin-bottom: 1.1rem;
+      display: block;
+    }
+    .card h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #1e1b4b;
+    }
+    .card p {
+      font-size: 0.88rem;
+      color: #6b6b9a;
+      line-height: 1.55;
+    }
+
+    /* ══════════════════════════════════════
+       PAGE : DASHBOARD
+    ══════════════════════════════════════ */
+    .section-content {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #1e1b4b;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 2px solid rgba(100,80,180,0.15);
+    }
+
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .stat-box {
+      background: white;
+      border-radius: 16px;
+      padding: 1.2rem 1.4rem;
+      box-shadow: 4px 4px 12px rgba(160,140,210,0.13),
+                  -2px -2px 7px rgba(255,255,255,0.9);
+      border: none;
+      text-align: center;
+    }
+    .stat-box .val {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #1e1b4b;
+    }
+    .stat-box .lbl { font-size: 0.8rem; color: #9090c0; margin-top: 0.2rem; }
+
+    .budget-card {
+      background: white;
+      border-radius: 18px;
+      padding: 1.5rem;
+      box-shadow: 4px 4px 14px rgba(160,140,210,0.14),
+                  -2px -2px 8px rgba(255,255,255,0.9);
+      border: none;
+      margin-bottom: 1rem;
+    }
+    .budget-card h4 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #1e1b4b;
+      margin-bottom: 0.8rem;
+      text-transform: capitalize;
+    }
+    .budget-bar-bg {
+      background: #edf2f7;
+      border-radius: 999px;
+      height: 14px;
+      overflow: hidden;
+      margin-bottom: 0.5rem;
+    }
+    .budget-bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      transition: width 0.6s ease;
+    }
+    .budget-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      color: #718096;
+    }
+
+    /* ══════════════════════════════════════
+       PAGE : AJOUTER UNE FACTURE
+    ══════════════════════════════════════ */
+    .form-card {
+      background: white;
+      border-radius: 18px;
+      padding: 2rem;
+      box-shadow: 4px 4px 14px rgba(160,140,210,0.14),
+                  -2px -2px 8px rgba(255,255,255,0.9);
+      border: none;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+    }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-group label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #4a5568;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      border: 1px solid #e2e8f0;
+      border-radius: 7px;
+      padding: 0.6rem 0.9rem;
+      font-size: 0.95rem;
+      color: #2d3748;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      background: #fafafa;
+    }
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #3498db;
+      box-shadow: 0 0 0 3px rgba(52,152,219,0.15);
+      background: white;
+    }
+    .computed-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      padding: 1rem;
+      background: #f7fafc;
+      border-radius: 8px;
+      margin-top: 0.5rem;
+    }
+    .computed-item { display: flex; flex-direction: column; gap: 0.2rem; }
+    .computed-item .c-label { font-size: 0.78rem; color: #a0aec0; font-weight: 600; text-transform: uppercase; }
+    .computed-item .c-value { font-size: 1.15rem; font-weight: 700; color: #2c3e50; }
+    .btn {
+      padding: 0.75rem 2rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.15s, transform 0.1s;
+    }
+    .btn:active { transform: scale(0.98); }
+    .btn-primary { background: #2ecc71; color: white; }
+    .btn-primary:hover { opacity: 0.9; }
+    .btn-danger { background: #e74c3c; color: white; }
+    .btn-orange { background: #e67e22; color: white; }
+    .btn-orange:hover { opacity: 0.9; }
+    .form-actions { margin-top: 1.5rem; display: flex; gap: 1rem; align-items: center; }
+
+    /* ══════════════════════════════════════
+       PAGE : TRAITEMENT
+    ══════════════════════════════════════ */
+    .process-hero {
+      text-align: center;
+      padding: 2rem 0 1.5rem;
+    }
+    .process-hero p { color: #718096; margin-top: 0.5rem; font-size: 0.95rem; }
+    .btn-launch {
+      font-size: 1.1rem;
+      padding: 1rem 3rem;
+      border-radius: 10px;
+      margin-top: 1.5rem;
+    }
+    .results-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      margin-top: 1.5rem;
+    }
+    .results-table th {
+      background: #2c3e50;
+      color: white;
+      padding: 0.75rem 1rem;
+      text-align: left;
+      font-weight: 600;
+    }
+    .results-table td {
+      padding: 0.7rem 1rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .results-table tr:hover td { background: #f7fafc; }
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+    .badge-ok  { background: #c6f6d5; color: #276749; }
+    .badge-rej { background: #fed7d7; color: #9b2c2c; }
+
+    /* ══════════════════════════════════════
+       PAGE : DOCUMENTS
+    ══════════════════════════════════════ */
+    .tabs {
+      display: flex;
+      gap: 0.3rem;
+      border-bottom: 2px solid #e2e8f0;
+      margin-bottom: 1.5rem;
+    }
+    .tab-btn {
+      padding: 0.6rem 1.2rem;
+      border: none;
+      background: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #a0aec0;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .tab-btn.active { color: #9b59b6; border-bottom-color: #9b59b6; }
+    .tab-btn:hover:not(.active) { color: #4a5568; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .doc-list { display: flex; flex-direction: column; gap: 0.7rem; }
+    .doc-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: white;
+      border: none;
+      border-radius: 14px;
+      padding: 0.9rem 1.2rem;
+      box-shadow: 3px 3px 10px rgba(160,140,210,0.12),
+                  -2px -2px 7px rgba(255,255,255,0.85);
+    }
+    .doc-icon { font-size: 1.4rem; }
+    .doc-name { flex: 1; font-size: 0.9rem; font-weight: 600; color: #2d3748; }
+    .doc-date { font-size: 0.78rem; color: #a0aec0; }
+    .doc-dl {
+      background: none;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 0.3rem 0.8rem;
+      font-size: 0.8rem;
+      cursor: pointer;
+      color: #4a5568;
+      transition: background 0.15s;
+    }
+    .doc-dl:hover { background: #f7fafc; }
+    .reinit-zone {
+      margin-top: 2rem;
+      padding: 1.2rem 1.5rem;
+      background: #fff5f5;
+      border: 1px solid #fed7d7;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .reinit-zone p { font-size: 0.9rem; color: #c53030; }
+
+    @media (max-width: 600px) {
+      .form-grid { grid-template-columns: 1fr; }
+      .cards-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════
+     HEADER
+═══════════════════════════════════ -->
+<header>
+  <button class="back-btn" id="back-btn" onclick="goHome()">← Accueil</button>
+  <h1 id="header-title">RenovBat 2026</h1>
+  <span class="subtitle">Gestion des factures</span>
+</header>
+
+<!-- ═══════════════════════════════════
+     PAGE ACCUEIL
+═══════════════════════════════════ -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <h2>Projet renovation_2026</h2>
+    <p>Sélectionnez une section pour commencer</p>
+  </div>
+  <div class="cards-grid">
+    <div class="card card-dashboard" onclick="goTo('dashboard', 'Dashboard', '📊')">
+      <span class="card-icon">📊</span>
+      <h3>Dashboard</h3>
+      <p>Suivre la consommation budgétaire par lot et l'état global du projet</p>
+    </div>
+    <div class="card card-add" onclick="goTo('add', 'Ajouter une facture', '➕')">
+      <span class="card-icon">➕</span>
+      <h3>Ajouter une facture</h3>
+      <p>Saisir une nouvelle facture et la générer au format Factur-X</p>
+    </div>
+    <div class="card card-process" onclick="goTo('process', 'Traiter les situations', '⚙️')">
+      <span class="card-icon">⚙️</span>
+      <h3>Traiter les situations</h3>
+      <p>Valider les factures en attente et générer les navettes et bons de paiement</p>
+    </div>
+    <div class="card card-documents" onclick="goTo('documents', 'Documents', '📁')">
+      <span class="card-icon">📁</span>
+      <h3>Documents</h3>
+      <p>Consulter navettes, bons de paiement, mails IMMOSOCIAL et bilans budgétaires</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     PAGE DASHBOARD
+═══════════════════════════════════ -->
+<div id="page-dashboard" class="page">
+  <div class="section-content">
+    <div class="section-title">Vue d'ensemble</div>
+
+    <div class="stat-row">
+      <div class="stat-box"><div class="val">3</div><div class="lbl">Factures traitées</div></div>
+      <div class="stat-box"><div class="val">50 550 €</div><div class="lbl">Total engagé</div></div>
+      <div class="stat-box"><div class="val">38 450 €</div><div class="lbl">Budget restant</div></div>
+      <div class="stat-box"><div class="val">23/04/2026</div><div class="lbl">Dernière session</div></div>
+    </div>
+
+    <div class="section-title">Consommation par lot</div>
+
+    <div class="budget-card">
+      <h4>Isolation thermique</h4>
+      <div class="budget-bar-bg">
+        <div class="budget-bar-fill" style="width:62.5%; background:#e67e22;"></div>
+      </div>
+      <div class="budget-meta">
+        <span>31 250 € engagés</span>
+        <span>Budget : 50 000 €</span>
+        <span><strong>62,5 %</strong></span>
+      </div>
+    </div>
+
+    <div class="budget-card">
+      <h4>Rénovation chauffage</h4>
+      <div class="budget-bar-bg">
+        <div class="budget-bar-fill" style="width:48.25%; background:#2ecc71;"></div>
+      </div>
+      <div class="budget-meta">
+        <span>19 300 € engagés</span>
+        <span>Budget : 40 000 €</span>
+        <span><strong>48,25 %</strong></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     PAGE AJOUTER UNE FACTURE
+═══════════════════════════════════ -->
+<div id="page-add" class="page">
+  <div class="section-content">
+    <div class="section-title">Nouvelle facture</div>
+    <div class="form-card">
+      <form onsubmit="return false;">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Numéro de facture</label>
+            <input type="text" placeholder="FAC-2026-004" id="f-num">
+          </div>
+          <div class="form-group">
+            <label>Date</label>
+            <input type="date" id="f-date">
+          </div>
+          <div class="form-group">
+            <label>Lot</label>
+            <select id="f-lot">
+              <option value="">— Sélectionner —</option>
+              <option value="isolation_thermique">Isolation thermique</option>
+              <option value="renovation_chauffage">Rénovation chauffage</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Taux de TVA</label>
+            <select id="f-tva">
+              <option value="20">20 %</option>
+              <option value="10">10 %</option>
+              <option value="5.5">5,5 %</option>
+            </select>
+          </div>
+          <div class="form-group full">
+            <label>Prestataire</label>
+            <select id="f-prest">
+              <option value="">— Sélectionner ou saisir un nouveau —</option>
+              <option value="PLAT001">Platr'O'Matic SARL (PLAT001)</option>
+              <option value="REVE001">RevetoPower &amp; Associes (REVE001)</option>
+              <option value="CHAU001">ChaudoMagic SAS (CHAU001)</option>
+              <option value="new">+ Nouveau prestataire</option>
+            </select>
+          </div>
+          <div class="form-group full">
+            <label>Objet des travaux</label>
+            <input type="text" placeholder="Description des travaux…" id="f-obj">
+          </div>
+          <div class="form-group">
+            <label>Montant HT (€)</label>
+            <input type="number" step="0.01" placeholder="0,00" id="f-ht"
+                   oninput="computeTTC()">
+          </div>
+          <div class="form-group">
+            <label>&nbsp;</label>
+            <div class="computed-row" style="margin-top:0;">
+              <div class="computed-item">
+                <span class="c-label">TVA</span>
+                <span class="c-value" id="c-tva">—</span>
+              </div>
+              <div class="computed-item">
+                <span class="c-label">Total TTC</span>
+                <span class="c-value" id="c-ttc">—</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-primary" onclick="submitInvoice()">Créer la facture Factur-X</button>
+          <span id="form-msg" style="font-size:0.85rem; color:#718096;"></span>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     PAGE TRAITEMENT
+═══════════════════════════════════ -->
+<div id="page-process" class="page">
+  <div class="section-content">
+    <div class="section-title">Traitement des situations</div>
+    <div class="form-card process-hero">
+      <p>Lance la validation budgétaire de toutes les factures en attente<br>
+         et génère les navettes, bons de paiement et mails IMMOSOCIAL.</p>
+      <button class="btn btn-orange btn-launch" onclick="launchProcess()">
+        ⚙️ Lancer le traitement
+      </button>
+    </div>
+
+    <div id="process-results" style="display:none;">
+      <div class="section-title" style="margin-top:2rem;">Résultats</div>
+      <table class="results-table">
+        <thead>
+          <tr>
+            <th>Référence</th><th>Société</th><th>Lot</th><th>Montant TTC</th><th>Statut</th>
+          </tr>
+        </thead>
+        <tbody id="results-body"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     PAGE DOCUMENTS
+═══════════════════════════════════ -->
+<div id="page-documents" class="page">
+  <div class="section-content">
+    <div class="section-title">Documents générés</div>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="showTab('navettes', this)">Navettes</button>
+      <button class="tab-btn" onclick="showTab('bons', this)">Bons de paiement</button>
+      <button class="tab-btn" onclick="showTab('mails', this)">Mails IMMOSOCIAL</button>
+      <button class="tab-btn" onclick="showTab('bilan', this)">Vue globale</button>
+    </div>
+
+    <div id="tab-navettes" class="tab-panel active">
+      <div class="doc-list">
+        <div class="doc-item">
+          <span class="doc-icon">✅</span>
+          <span class="doc-name">navette_FAC-2026-001.txt</span>
+          <span class="doc-date">17/04/2026</span>
+          <button class="doc-dl">⬇ Télécharger</button>
+        </div>
+        <div class="doc-item">
+          <span class="doc-icon">✅</span>
+          <span class="doc-name">navette_FAC-2026-002.txt</span>
+          <span class="doc-date">17/04/2026</span>
+          <button class="doc-dl">⬇ Télécharger</button>
+        </div>
+        <div class="doc-item">
+          <span class="doc-icon">✅</span>
+          <span class="doc-name">navette_FAC-2026-003.txt</span>
+          <span class="doc-date">17/04/2026</span>
+          <button class="doc-dl">⬇ Télécharger</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-bons" class="tab-panel">
+      <div class="doc-list">
+        <div class="doc-item">
+          <span class="doc-icon">💳</span>
+          <span class="doc-name">bon_FAC-2026-001.txt</span>
+          <span class="doc-date">17/04/2026</span>
+          <button class="doc-dl">⬇ Télécharger</button>
+        </div>
+        <div class="doc-item">
+          <span class="doc-icon">💳</span>
+          <span class="doc-name">bon_FAC-2026-002.txt</span>
+          <span class="doc-date">17/04/2026</span>
+          <button class="doc-dl">⬇ Télécharger</button>
+        </div>
+        <div class="doc-item">
+          <span class="doc-icon">💳</span>
+          <span class="doc-name">bon_FAC-2026-003.txt</span>
+          <span class="doc-date">17/04/2026</span>
+          <button class="doc-dl">⬇ Télécharger</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-mails" class="tab-panel">
+      <div class="doc-list">
+        <div class="doc-item">
+          <span class="doc-icon">📨</span>
+          <span class="doc-name">mail_FAC-2026-001.txt</span>
+          <span class="doc-date">17/04/2026</span>
+          <button class="doc-dl">⬇ Télécharger</button>
+        </div>
+        <div class="doc-item">
+          <span class="doc-icon">📨</span>
+          <span class="doc-name">mail_FAC-2026-002.txt</span>
+          <span class="doc-date">17/04/2026</span>
+          <button class="doc-dl">⬇ Télécharger</button>
+        </div>
+        <div class="doc-item">
+          <span class="doc-icon">📨</span>
+          <span class="doc-name">mail_FAC-2026-003.txt</span>
+          <span class="doc-date">17/04/2026</span>
+          <button class="doc-dl">⬇ Télécharger</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-bilan" class="tab-panel">
+      <div class="doc-list">
+        <div class="doc-item">
+          <span class="doc-icon">📊</span>
+          <span class="doc-name">budget_20260423.png</span>
+          <span class="doc-date">23/04/2026</span>
+          <button class="doc-dl">⬇ PNG</button>
+        </div>
+        <div class="doc-item">
+          <span class="doc-icon">📗</span>
+          <span class="doc-name">budget_20260423.xlsx</span>
+          <span class="doc-date">23/04/2026</span>
+          <button class="doc-dl">⬇ Excel</button>
+        </div>
+        <div class="doc-item">
+          <span class="doc-icon">📄</span>
+          <span class="doc-name">recap_20260423.txt</span>
+          <span class="doc-date">23/04/2026</span>
+          <button class="doc-dl">⬇ Télécharger</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="reinit-zone">
+      <p>⚠️ Réinitialiser tous les documents générés (navettes, bons, mails, bilans)</p>
+      <button class="btn btn-danger" onclick="confirmReinit()">Réinitialiser</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ── Navigation ──────────────────────────────────────────────
+  function goTo(pageId, title, icon) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + pageId).classList.add('active');
+    document.getElementById('header-title').textContent = icon + '  ' + title;
+    document.getElementById('back-btn').style.display = 'inline-block';
+  }
+
+  function goHome() {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-home').classList.add('active');
+    document.getElementById('header-title').textContent = 'RenovBat 2026';
+    document.getElementById('back-btn').style.display = 'none';
+  }
+
+  // ── Formulaire facture ──────────────────────────────────────
+  function computeTTC() {
+    const ht  = parseFloat(document.getElementById('f-ht').value) || 0;
+    const tva = parseFloat(document.getElementById('f-tva').value) || 20;
+    const montantTva = ht * tva / 100;
+    const ttc = ht + montantTva;
+    const fmt = v => v > 0 ? v.toLocaleString('fr-FR', {minimumFractionDigits:2}) + ' €' : '—';
+    document.getElementById('c-tva').textContent = fmt(montantTva);
+    document.getElementById('c-ttc').textContent = fmt(ttc);
+  }
+
+  function submitInvoice() {
+    const num = document.getElementById('f-num').value.trim();
+    if (!num) { document.getElementById('form-msg').textContent = '⚠ Numéro de facture requis.'; return; }
+    document.getElementById('form-msg').textContent = '✓ Facture ' + num + ' créée avec succès.';
+    document.getElementById('form-msg').style.color = '#276749';
+  }
+
+  // ── Traitement ──────────────────────────────────────────────
+  function launchProcess() {
+    const sampleData = [
+      {ref:'FAC-2026-001', societe:"Platr'O'Matic SARL", lot:'isolation_thermique', ttc:'12 500,00 €', ok:true},
+      {ref:'FAC-2026-002', societe:'RevetoPower & Associes', lot:'isolation_thermique', ttc:'18 750,00 €', ok:true},
+      {ref:'FAC-2026-003', societe:'ChaudoMagic SAS', lot:'renovation_chauffage', ttc:'19 300,00 €', ok:true},
+    ];
+    const tbody = document.getElementById('results-body');
+    tbody.innerHTML = sampleData.map(f => `
+      <tr>
+        <td>${f.ref}</td><td>${f.societe}</td><td>${f.lot.replace('_',' ')}</td>
+        <td>${f.ttc}</td>
+        <td><span class="badge ${f.ok?'badge-ok':'badge-rej'}">${f.ok?'✓ Approuvée':'✗ Rejetée'}</span></td>
+      </tr>`).join('');
+    document.getElementById('process-results').style.display = 'block';
+  }
+
+  // ── Tabs documents ──────────────────────────────────────────
+  function showTab(id, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  // ── Réinitialisation ────────────────────────────────────────
+  function confirmReinit() {
+    if (confirm('Supprimer tous les documents générés ? Les factures PDF seront préservées.')) {
+      alert('Réinitialisation effectuée.');
+    }
+  }
+</script>
+</body>
+</html>
