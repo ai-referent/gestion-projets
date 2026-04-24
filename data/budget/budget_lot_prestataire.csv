@@ -1,0 +1,4 @@
+id_prestataire,id_lot,montant_initial,avenant_1,avenant_2
+PLAT001,isolation_thermique,20000,0,0
+REVE001,isolation_acoustique,30000,0,0
+CHAU001,renovation_chauffage,40000,0,0

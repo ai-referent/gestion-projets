@@ -1,7 +1,7 @@
 # Skill : Ajout d'une facture — Projet renovation_2026
 
-Ce skill guide la saisie d'une nouvelle facture, crée le PDF correspondant et l'ajoute dans `data/factures/`.
-Si le prestataire est nouveau, il est également ajouté dans `data/prestataires/prestataires.csv`.
+Ce skill guide la saisie d'une nouvelle facture, crée le PDF Factur-X correspondant et l'ajoute dans `data/factures/`.
+Si le prestataire est nouveau, il est ajouté dans `data/prestataires/prestataires.csv` et `data/budget/budget_lot_prestataire.csv`.
 
 ---
 
@@ -13,7 +13,7 @@ Poser les questions suivantes une par une (attendre la réponse avant de passer 
 2. **Date de la facture** — format JJ/MM/AAAA ou texte libre (ex: 20 avril 2026)
 3. **Nom de la société émettrice**
 4. **Identifiant de la société** — code court en majuscules (ex: REVE001). Si la société est déjà dans `data/prestataires/prestataires.csv`, utiliser son identifiant existant.
-5. **Lot concerné** — doit correspondre à un lot existant dans `data/budget/budget_global.csv`. Afficher la liste des lots disponibles avant de poser la question.
+5. **Lot concerné** — doit correspondre à un `id_lot` existant dans `data/budget/budget_lot_prestataire.csv`. Afficher la liste des lots disponibles (colonne `id_lot`) avant de poser la question.
 6. **Objet des travaux** — description courte (ex: Pose isolation combles)
 7. **Montant HT** — en euros (ex: 8000)
 8. **Taux de TVA** — en % (défaut : 20)
@@ -31,20 +31,24 @@ Afficher un récapitulatif et demander confirmation avant de créer le PDF.
 
 ## Étape 2 — Vérification du prestataire
 
-Lire `data/prestataires/prestataires.csv`.
+Lire `data/prestataires/prestataires.csv` (colonnes : `id_prestataire`, `nom_prestataire`, `adresse_prestataire`, `mail_prestataire`, `siret`).
 
-- Si l'identifiant existe déjà → vérifier que le lot correspond. Si le lot diffère, signaler l'incohérence et demander confirmation.
-- Si l'identifiant est nouveau → ajouter une ligne dans `prestataires.csv` :
+- Si l'`id_prestataire` existe déjà → vérifier que le lot correspond dans `budget_lot_prestataire.csv`. Si le lot diffère, signaler l'incohérence et demander confirmation.
+- Si l'`id_prestataire` est nouveau → ajouter une ligne dans `prestataires.csv` :
   ```
-  <identifiant>,<nom>,<lot>
+  <id_prestataire>,<nom>,<adresse ou vide>,<mail ou vide>,<siret ou vide>
   ```
-  Et signaler : "Nouveau prestataire ajouté : <nom> (<identifiant>) sur le lot <lot>."
+  Puis ajouter une ligne dans `data/budget/budget_lot_prestataire.csv` :
+  ```
+  <id_prestataire>,<id_lot>,0,0,0
+  ```
+  Signaler : "Nouveau prestataire ajouté : `<nom>` (`<id>`) sur le lot `<lot>`. Budget initialisé à 0 — à mettre à jour manuellement dans `budget_lot_prestataire.csv`."
 
 ---
 
 ## Étape 3 — Génération du PDF Factur-X
 
-Construire le dict JSON suivant avec les données collectées, puis appeler le script :
+Construire le dict JSON et appeler le script :
 
 ```python
 import json, subprocess
@@ -53,7 +57,7 @@ inv = {
     "filename": "<NUMERO>.pdf",          # ex: FAC-2026-004.pdf
     "id": "<NUMERO>",                    # ex: FAC-2026-004
     "date": "<YYYYMMDD>",                # convertir JJ/MM/AAAA → AAAAMMJJ
-    "lot": "<LOT>",
+    "lot": "<ID_LOT>",
     "seller": {
         "name": "<NOM SOCIETE>",
         "siret": "<SIRET>",              # omettre la clé si non fourni
@@ -85,7 +89,7 @@ print(result.stdout.strip())  # affiche le chemin du PDF créé
 ```
 
 Le script génère un PDF **Factur-X BASIC** (PDF 1.7 + XML CII embarqué).
-La date d'échéance (due_date) est calculée automatiquement à date + 30 jours.
+La date d'échéance (`due_date`) est calculée automatiquement à date + 30 jours.
 
 ---
 

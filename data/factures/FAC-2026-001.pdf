@@ -11,7 +11,7 @@ BT
 0 -18 Td
 (42 rue du Crepissage - 75011 Paris) Tj
 0 -14 Td
-(SIRET : 12345678900012) Tj
+(SIRET : 00000000000001) Tj
 /F2 14 Tf
 0 -45 Td
 (FACTURE) Tj
@@ -56,7 +56,7 @@ stream
 endstream
 endobj
 3 0 obj
-<< /Type /EmbeddedFile /Subtype /text#2Fxml /Params << /Size 4188 /CheckSum <e21dfffab3a2bd19a5aded1968f220f0> >> /Length 4188 >>
+<< /Type /EmbeddedFile /Subtype /text#2Fxml /Params << /Size 4188 /CheckSum <61cad3e66b011f3e4442b2515139157f> >> /Length 4188 >>
 stream
 <?xml version="1.0" encoding="UTF-8"?>
 <rsm:CrossIndustryInvoice
@@ -106,7 +106,7 @@ stream
       <ram:SellerTradeParty>
         <ram:Name>Platr&apos;O&apos;Matic SARL</ram:Name>
       <ram:SpecifiedLegalOrganization>
-        <ram:ID schemeID="0002">12345678900012</ram:ID>
+        <ram:ID schemeID="0002">00000000000001</ram:ID>
       </ram:SpecifiedLegalOrganization>
         <ram:PostalTradeAddress>
           <ram:LineOne>42 rue du Crepissage</ram:LineOne>

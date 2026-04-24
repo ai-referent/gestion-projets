@@ -1,4 +1,4 @@
-identifiant,nom,lot
-PLAT001,Plâtr'O'Matic SARL,isolation_thermique
-REVE001,RevêtoPower & Associés,isolation_thermique
-CHAU001,ChaudoMagic SAS,renovation_chauffage
+id_prestataire,nom_prestataire,adresse_prestataire,mail_prestataire,siret
+PLAT001,Plâtr'O'Matic SARL,42 rue du Crepissage - 75011 Paris,contact@platromatic.fr,00000000000001
+REVE001,RevêtoPower & Associés,17 impasse du Carreau - 13001 Marseille,contact@revetopower.fr,00000000000002
+CHAU001,ChaudoMagic SAS,3 boulevard de la Vapeur - 31000 Toulouse,contact@chaudromagic.fr,00000000000003

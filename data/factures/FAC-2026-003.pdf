@@ -11,7 +11,7 @@ BT
 0 -18 Td
 (3 boulevard de la Vapeur - 31000 Toulouse) Tj
 0 -14 Td
-(SIRET : 98765432100034) Tj
+(SIRET : 00000000000003) Tj
 /F2 14 Tf
 0 -45 Td
 (FACTURE) Tj
@@ -76,7 +76,7 @@ stream
 endstream
 endobj
 3 0 obj
-<< /Type /EmbeddedFile /Subtype /text#2Fxml /Params << /Size 8713 /CheckSum <e4a92193e282c87f2c7a6be432271133> >> /Length 8713 >>
+<< /Type /EmbeddedFile /Subtype /text#2Fxml /Params << /Size 8713 /CheckSum <ad9d7fd54802ce0c9bce3f60323f58e4> >> /Length 8713 >>
 stream
 <?xml version="1.0" encoding="UTF-8"?>
 <rsm:CrossIndustryInvoice
@@ -230,7 +230,7 @@ stream
       <ram:SellerTradeParty>
         <ram:Name>ChaudoMagic SAS</ram:Name>
       <ram:SpecifiedLegalOrganization>
-        <ram:ID schemeID="0002">98765432100034</ram:ID>
+        <ram:ID schemeID="0002">00000000000003</ram:ID>
       </ram:SpecifiedLegalOrganization>
         <ram:PostalTradeAddress>
           <ram:LineOne>3 boulevard de la Vapeur</ram:LineOne>
