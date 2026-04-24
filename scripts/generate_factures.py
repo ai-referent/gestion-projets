@@ -58,7 +58,7 @@ INVOICES = [
         "lot": "isolation_thermique",
         "seller": {
             "name": "Platr'O'Matic SARL",
-            "siret": "12345678900012",
+            "siret": "00000000000001",
             "address": "42 rue du Crepissage",
             "postcode": "75011",
             "city": "Paris",
@@ -83,9 +83,10 @@ INVOICES = [
         "id": "FAC-2026-002",
         "date": "20260328",
         "due_date": "20260427",
-        "lot": "isolation_thermique",
+        "lot": "isolation_acoustique",
         "seller": {
             "name": "RevetoPower & Associes",
+            "siret": "00000000000002",
             "address": "17 impasse du Carreau",
             "postcode": "13001",
             "city": "Marseille",
@@ -121,7 +122,7 @@ INVOICES = [
         "lot": "renovation_chauffage",
         "seller": {
             "name": "ChaudoMagic SAS",
-            "siret": "98765432100034",
+            "siret": "00000000000003",
             "address": "3 boulevard de la Vapeur",
             "postcode": "31000",
             "city": "Toulouse",

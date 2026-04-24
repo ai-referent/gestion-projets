@@ -1,7 +1,7 @@
 %PDF-1.7
 %‚„œ”
 1 0 obj
-<< /Length 795 >>
+<< /Length 818 >>
 stream
 BT
 /F2 16 Tf
@@ -11,7 +11,7 @@ BT
 0 -18 Td
 (17 impasse du Carreau - 13001 Marseille) Tj
 0 -14 Td
-() Tj
+(SIRET : 00000000000002) Tj
 /F2 14 Tf
 0 -45 Td
 (FACTURE) Tj
@@ -23,7 +23,7 @@ BT
 0 -16 Td
 (Client        : RenovBat - 8 avenue des Batisseurs, 69000 Lyon) Tj
 0 -16 Td
-(Lot           : isolation_thermique) Tj
+(Lot           : isolation_acoustique) Tj
 /F2 11 Tf
 0 -35 Td
 (Designation) Tj
@@ -61,7 +61,7 @@ stream
 endstream
 endobj
 3 0 obj
-<< /Type /EmbeddedFile /Subtype /text#2Fxml /Params << /Size 5198 /CheckSum <5c7025b0706f5d4f60dd138658b413a0> >> /Length 5198 >>
+<< /Type /EmbeddedFile /Subtype /text#2Fxml /Params << /Size 5333 /CheckSum <fdbe8519e99e10e254a03cd6f77c59b3> >> /Length 5333 >>
 stream
 <?xml version="1.0" encoding="UTF-8"?>
 <rsm:CrossIndustryInvoice
@@ -136,6 +136,9 @@ stream
     <ram:ApplicableHeaderTradeAgreement>
       <ram:SellerTradeParty>
         <ram:Name>RevetoPower &amp; Associes</ram:Name>
+      <ram:SpecifiedLegalOrganization>
+        <ram:ID schemeID="0002">00000000000002</ram:ID>
+      </ram:SpecifiedLegalOrganization>
         <ram:PostalTradeAddress>
           <ram:LineOne>17 impasse du Carreau</ram:LineOne>
           <ram:PostcodeCode>13001</ram:PostcodeCode>
@@ -197,14 +200,14 @@ xref
 0 8
 0000000000 65535 f 
 0000000015 00000 n 
-0000000861 00000 n 
-0000001542 00000 n 
-0000006903 00000 n 
-0000007093 00000 n 
-0000007332 00000 n 
-0000007389 00000 n 
+0000000884 00000 n 
+0000001565 00000 n 
+0000007061 00000 n 
+0000007251 00000 n 
+0000007490 00000 n 
+0000007547 00000 n 
 trailer
 << /Size 8 /Root 7 0 R >>
 startxref
-7559
+7717
 %%EOF
