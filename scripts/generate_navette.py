@@ -14,10 +14,15 @@ JSON attendu:
   "approved"      : true,
   "motif"         : null,
   "cumul_existant": 0.0,
-  "budget_total"  : 20000.0
+  "budget_total"  : 20000.0        (HT, depuis budget_lot_prestataire.csv)
 }
 
-Sortie stdout: chemin du fichier sauvegardé.
+Cellules de référence pour la lecture par situations.md :
+  B10 = montant HT, B11 = TVA, B12 = montant TTC
+  A14 = marqueur approbation ("✓ FACTURE APPROUVÉE" ou "✗ FACTURE REJETÉE")
+  B24 = nouveau cumul TTC (bon de paiement)
+
+Sortie stdout: message de statut.
 """
 
 import json
@@ -26,20 +31,13 @@ import sys
 from datetime import date
 
 import openpyxl
-from openpyxl.styles import Alignment, Font, PatternFill
+from openpyxl.styles import Font
+
+TVA_TAUX = 0.20
 
 
-def _fmt_eur(cell):
+def _eur(cell):
     cell.number_format = '#,##0.00 "EUR"'
-
-
-def _bold(cell, size=None, color=None):
-    kwargs = {"bold": True}
-    if size:
-        kwargs["size"] = size
-    if color:
-        kwargs["color"] = color
-    cell.font = Font(**kwargs)
 
 
 def add_sheet(data: dict) -> str:
@@ -49,10 +47,14 @@ def add_sheet(data: dict) -> str:
     id_lot      = data["id_lot"]
     approved    = data["approved"]
     motif       = data.get("motif")
-    cumul_existant = float(data.get("cumul_existant", 0))
-    budget_total   = float(data.get("budget_total", 0))
-    montant        = float(fac["montant_ttc"])
-    today          = date.today().strftime("%d/%m/%Y")
+    cumul_existant_ttc = float(data.get("cumul_existant", 0))
+    budget_ht          = float(data.get("budget_total", 0))
+
+    montant_ttc = float(fac["montant_ttc"])
+    montant_ht  = round(montant_ttc / (1 + TVA_TAUX), 2)
+    montant_tva = round(montant_ttc - montant_ht, 2)
+    budget_ttc  = round(budget_ht * (1 + TVA_TAUX), 2)
+    today       = date.today().strftime("%d/%m/%Y")
 
     # Charger ou créer le classeur
     if target_file.exists():
@@ -66,9 +68,10 @@ def add_sheet(data: dict) -> str:
 
     ws = wb.create_sheet(title=sheet_name)
 
+    GREEN = "1E8449"
+    RED   = "C0392B"
+
     # ── FICHE NAVETTE ─────────────────────────────────────────────────────────
-    GREEN  = "1E8449"
-    RED    = "C0392B"
 
     ws["A1"] = "FICHE NAVETTE — PROJET renovation_2026"
     ws["A1"].font = Font(bold=True, size=13)
@@ -77,60 +80,62 @@ def add_sheet(data: dict) -> str:
     ws["A3"] = "MOE";  ws["B3"] = "RenovBat"
     ws["A4"] = "MOA";  ws["B4"] = "IMMOSOCIAL_69"
 
-    ws["A6"]  = "Référence facture";   ws["B6"]  = fac["numero"]
-    ws["A7"]  = "Date de la facture";  ws["B7"]  = fac["date"]
-    ws["A8"]  = "Émetteur";            ws["B8"]  = fac["societe"]
-    ws["A9"]  = "Lot concerné";        ws["B9"]  = id_lot
-    ws["A10"] = "Montant TTC"
-    ws["B10"] = montant
-    _fmt_eur(ws["B10"])
+    ws["A6"] = "Référence facture";  ws["B6"] = fac["numero"]
+    ws["A7"] = "Date de la facture"; ws["B7"] = fac["date"]
+    ws["A8"] = "Émetteur";           ws["B8"] = fac["societe"]
+    ws["A9"] = "Lot concerné";       ws["B9"] = id_lot
 
+    # Détail HT / TVA / TTC  (B10, B11, B12 = cellules de référence)
+    ws["A10"] = "Montant HT";        ws["B10"] = montant_ht;  _eur(ws["B10"])
+    ws["A11"] = f"TVA ({TVA_TAUX:.0%})"; ws["B11"] = montant_tva; _eur(ws["B11"])
+    ws["A12"] = "Montant TTC";       ws["B12"] = montant_ttc; _eur(ws["B12"])
+
+    # Statut — A14 est la cellule de référence lue par situations.md
     if approved:
-        ws["A12"] = "✓ FACTURE APPROUVÉE"
-        ws["A12"].font = Font(bold=True, color=GREEN)
-        ws.merge_cells("A12:B12")
-        ws["A13"] = "Date d'approbation"; ws["B13"] = today
-        ws["A14"] = "Approuvé par";       ws["B14"] = "RenovBat"
+        ws["A14"] = "✓ FACTURE APPROUVÉE"
+        ws["A14"].font = Font(bold=True, color=GREEN)
+        ws.merge_cells("A14:B14")
+        ws["A15"] = "Date d'approbation"; ws["B15"] = today
+        ws["A16"] = "Approuvé par";       ws["B16"] = "RenovBat"
     else:
-        ws["A12"] = "✗ FACTURE REJETÉE"
-        ws["A12"].font = Font(bold=True, color=RED)
-        ws.merge_cells("A12:B12")
-        ws["A13"] = "Date de traitement"; ws["B13"] = today
-        ws["A14"] = "Motif du rejet";     ws["B14"] = motif or ""
-        ws["A15"] = "Traité par";         ws["B15"] = "RenovBat"
+        ws["A14"] = "✗ FACTURE REJETÉE"
+        ws["A14"].font = Font(bold=True, color=RED)
+        ws.merge_cells("A14:B14")
+        ws["A15"] = "Date de traitement"; ws["B15"] = today
+        ws["A16"] = "Motif du rejet";     ws["B16"] = motif or ""
+        ws["A17"] = "Traité par";         ws["B17"] = "RenovBat"
 
     # ── BON DE PAIEMENT (uniquement si approuvée) ─────────────────────────────
     if approved:
-        nouveau_cumul = cumul_existant + montant
+        nouveau_cumul_ttc = cumul_existant_ttc + montant_ttc
 
-        ws["A17"] = "BON DE PAIEMENT — PROJET renovation_2026"
-        ws["A17"].font = Font(bold=True, size=13)
-        ws.merge_cells("A17:B17")
+        ws["A19"] = "BON DE PAIEMENT — PROJET renovation_2026"
+        ws["A19"].font = Font(bold=True, size=13)
+        ws.merge_cells("A19:B19")
 
-        ws["A19"] = "Montant global prévu pour le lot"
-        ws["B19"] = budget_total
-        _fmt_eur(ws["B19"])
+        ws["A21"] = "Budget total du lot HT";  ws["B21"] = budget_ht;  _eur(ws["B21"])
+        ws["A22"] = "Budget total du lot TTC"; ws["B22"] = budget_ttc; _eur(ws["B22"])
 
-        ws["A20"] = "Situations précédentes"
-        ws["B20"] = cumul_existant
-        _fmt_eur(ws["B20"])
+        ws["A24"] = "Situations précédentes TTC"
+        ws["B24"] = cumul_existant_ttc;  _eur(ws["B24"])
 
-        ws["A21"] = "Présente situation"
-        ws["B21"] = montant
-        _fmt_eur(ws["B21"])
+        ws["A25"] = "Présente situation HT";  ws["B25"] = montant_ht;  _eur(ws["B25"])
+        ws["A26"] = "Présente situation TVA"; ws["B26"] = montant_tva; _eur(ws["B26"])
+        ws["A27"] = "Présente situation TTC"; ws["B27"] = montant_ttc; _eur(ws["B27"])
 
-        ws["A23"] = "Nouveau cumul"
-        ws["B23"] = nouveau_cumul
-        ws["B23"].font = Font(bold=True)
-        _fmt_eur(ws["B23"])
+        # B29 = nouveau cumul TTC (cellule de référence pour le récapitulatif)
+        ws["A29"] = "Nouveau cumul TTC"
+        ws["B29"] = nouveau_cumul_ttc
+        ws["B29"].font = Font(bold=True)
+        _eur(ws["B29"])
 
-        ws["A24"] = "Reste à régler"
-        ws["B24"] = budget_total - nouveau_cumul
-        _fmt_eur(ws["B24"])
+        ws["A30"] = "Reste à régler TTC"
+        ws["B30"] = round(budget_ttc - nouveau_cumul_ttc, 2)
+        _eur(ws["B30"])
 
-        ws["A26"] = "Date d'émission";  ws["B26"] = today
-        ws["A27"] = "Établi par";       ws["B27"] = "RenovBat (MOE)"
-        ws["A28"] = "À destination de"; ws["B28"] = "IMMOSOCIAL_69 (MOA)"
+        ws["A32"] = "Date d'émission";  ws["B32"] = today
+        ws["A33"] = "Établi par";       ws["B33"] = "RenovBat (MOE)"
+        ws["A34"] = "À destination de"; ws["B34"] = "IMMOSOCIAL_69 (MOA)"
 
     ws.column_dimensions["A"].width = 38
     ws.column_dimensions["B"].width = 22

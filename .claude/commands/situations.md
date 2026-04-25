@@ -159,16 +159,16 @@ else:
         del wb["Sheet"]
 ```
 
-**d) Calculer le cumul existant** à partir des feuilles approuvées déjà présentes :
-La cellule `A12` contient `"✓ FACTURE APPROUVÉE"` si approuvée ; `B10` contient le montant TTC.
+**d) Calculer le cumul existant (TTC)** à partir des feuilles approuvées déjà présentes :
+La cellule `A14` contient `"✓ FACTURE APPROUVÉE"` si approuvée ; `B12` contient le montant TTC.
 
 ```python
 cumul_existant = 0.0
 for sname in wb.sheetnames:
     ws_ex = wb[sname]
-    if ws_ex["A12"].value and "APPROUVÉE" in str(ws_ex["A12"].value):
+    if ws_ex["A14"].value and "APPROUVÉE" in str(ws_ex["A14"].value):
         try:
-            cumul_existant += float(ws_ex["B10"].value or 0)
+            cumul_existant += float(ws_ex["B12"].value or 0)
         except (TypeError, ValueError):
             pass
 ```
@@ -285,9 +285,9 @@ for id_p, bud in budgets.items():
         wb_r = openpyxl.load_workbook(f)
         for sname in wb_r.sheetnames:
             ws_r = wb_r[sname]
-            if ws_r["A12"].value and "APPROUVÉE" in str(ws_r["A12"].value):
+            if ws_r["A14"].value and "APPROUVÉE" in str(ws_r["A14"].value):
                 try:
-                    engage += float(ws_r["B10"].value or 0)
+                    engage += float(ws_r["B12"].value or 0)
                 except (TypeError, ValueError):
                     pass
     lots_state[id_lot] = {"budget": bud["budget_total"], "engage": engage}
