@@ -13,11 +13,13 @@ Afficher le message suivant et demander confirmation avant de procéder :
 ⚠️  RÉINITIALISATION — Projet renovation_2026
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Les fichiers suivants vont être supprimés :
-  - data/navettes_et_bons/*.xlsx      (fichiers Excel lot-prestataire)
+  - data/navettes_et_bons/*.xlsx        (fichiers Excel lot-prestataire)
   - data/navettes_et_bons/mails/mail_*.txt
+  - data/navettes_et_bons/rejets/rejet_*.txt
   - data/vue_globale/recap_*.txt
   - data/vue_globale/budget_*.png
   - data/vue_globale/budget_*.xlsx
+  - data/tmp/.current_session.json
 
 Les factures PDF dans data/factures/ seront préservées.
 
@@ -37,9 +39,11 @@ base = pathlib.Path("data")
 patterns = [
     "navettes_et_bons/*.xlsx",
     "navettes_et_bons/mails/mail_*.txt",
+    "navettes_et_bons/rejets/rejet_*.txt",
     "vue_globale/recap_*.txt",
     "vue_globale/budget_*.png",
     "vue_globale/budget_*.xlsx",
+    "tmp/.current_session.json",
 ]
 deleted = []
 for pattern in patterns:
