@@ -159,16 +159,16 @@ else:
         del wb["Sheet"]
 ```
 
-**d) Calculer le cumul existant** à partir des feuilles approuvées déjà présentes :
-La cellule `A12` contient `"✓ FACTURE APPROUVÉE"` si approuvée ; `B10` contient le montant TTC.
+**d) Calculer le cumul existant (TTC)** à partir des feuilles approuvées déjà présentes :
+La cellule `A14` contient `"✓ FACTURE APPROUVÉE"` si approuvée ; `B12` contient le montant TTC.
 
 ```python
 cumul_existant = 0.0
 for sname in wb.sheetnames:
     ws_ex = wb[sname]
-    if ws_ex["A12"].value and "APPROUVÉE" in str(ws_ex["A12"].value):
+    if ws_ex["A14"].value and "APPROUVÉE" in str(ws_ex["A14"].value):
         try:
-            cumul_existant += float(ws_ex["B10"].value or 0)
+            cumul_existant += float(ws_ex["B12"].value or 0)
         except (TypeError, ValueError):
             pass
 ```
@@ -191,85 +191,34 @@ else:
 
 ## Étape 4 — Mettre à jour le fichier Excel lot-prestataire
 
-Ajouter une feuille nommée `fac["numero"]` dans le classeur.
-**Disposition fixe** (A = libellés, B = valeurs) :
+Appeler `scripts/generate_navette.py` avec les données calculées aux étapes précédentes :
 
 ```python
-from openpyxl.styles import Font, Alignment
+import json, subprocess
 
-ws = wb.create_sheet(title=fac["numero"])
-today = date.today().strftime("%d/%m/%Y")
+payload = {
+    "target_file"    : str(target_file),
+    "sheet_name"     : fac["numero"],
+    "fac"            : {
+        "numero"     : fac["numero"],
+        "date"       : fac["date"],
+        "societe"    : fac["societe"],
+        "montant_ttc": montant,
+    },
+    "id_lot"         : id_lot,
+    "approved"       : approved,
+    "motif"          : motif,
+    "cumul_existant" : cumul_existant,
+    "budget_total"   : budget_total,
+}
 
-# ── FICHE NAVETTE ──────────────────────────────────────────
-ws["A1"] = "FICHE NAVETTE — PROJET renovation_2026"
-ws["A1"].font = Font(bold=True, size=13)
-ws.merge_cells("A1:B1")
-
-ws["A3"] = "MOE" ; ws["B3"] = "RenovBat"
-ws["A4"] = "MOA" ; ws["B4"] = "IMMOSOCIAL_69"
-
-ws["A6"] = "Référence facture"  ; ws["B6"] = fac["numero"]
-ws["A7"] = "Date de la facture" ; ws["B7"] = fac["date"]
-ws["A8"] = "Émetteur"           ; ws["B8"] = fac["societe"]
-ws["A9"] = "Lot concerné"       ; ws["B9"] = id_lot
-ws["A10"] = "Montant TTC"
-ws["B10"] = montant
-ws["B10"].number_format = '#,##0.00 "EUR"'
-
-# Statut — A12 est la cellule de référence pour le calcul du cumul
-if approved:
-    ws["A12"] = "✓ FACTURE APPROUVÉE"
-    ws["A12"].font = Font(bold=True, color="1E8449")
-    ws.merge_cells("A12:B12")
-    ws["A13"] = "Date d'approbation" ; ws["B13"] = today
-    ws["A14"] = "Approuvé par"       ; ws["B14"] = "RenovBat"
-else:
-    ws["A12"] = "✗ FACTURE REJETÉE"
-    ws["A12"].font = Font(bold=True, color="C0392B")
-    ws.merge_cells("A12:B12")
-    ws["A13"] = "Date de traitement" ; ws["B13"] = today
-    ws["A14"] = "Motif du rejet"     ; ws["B14"] = motif
-    ws["A15"] = "Traité par"         ; ws["B15"] = "RenovBat"
-
-# ── BON DE PAIEMENT (uniquement si approuvée) ──────────────
-if approved:
-    nouveau_cumul = cumul_existant + montant
-
-    ws["A17"] = "BON DE PAIEMENT — PROJET renovation_2026"
-    ws["A17"].font = Font(bold=True, size=13)
-    ws.merge_cells("A17:B17")
-
-    ws["A19"] = "Montant global prévu pour le lot"
-    ws["B19"] = budget_total
-    ws["B19"].number_format = '#,##0.00 "EUR"'
-
-    ws["A20"] = "Situations précédentes"
-    ws["B20"] = cumul_existant
-    ws["B20"].number_format = '#,##0.00 "EUR"'
-
-    ws["A21"] = "Présente situation"
-    ws["B21"] = montant
-    ws["B21"].number_format = '#,##0.00 "EUR"'
-
-    ws["A23"] = "Nouveau cumul"
-    ws["B23"] = nouveau_cumul
-    ws["B23"].font = Font(bold=True)
-    ws["B23"].number_format = '#,##0.00 "EUR"'
-
-    ws["A24"] = "Reste à régler"
-    ws["B24"] = budget_total - nouveau_cumul
-    ws["B24"].number_format = '#,##0.00 "EUR"'
-
-    ws["A26"] = "Date d'émission"    ; ws["B26"] = today
-    ws["A27"] = "Établi par"         ; ws["B27"] = "RenovBat (MOE)"
-    ws["A28"] = "À destination de"   ; ws["B28"] = "IMMOSOCIAL_69 (MOA)"
-
-ws.column_dimensions["A"].width = 38
-ws.column_dimensions["B"].width = 22
-
-target_file.parent.mkdir(parents=True, exist_ok=True)
-wb.save(target_file)
-print(f"  → {fac['numero']} : {'APPROUVÉE ✓' if approved else 'REJETÉE ✗'} — {target_file.name}")
+result = subprocess.run(
+    ["python3", "scripts/generate_navette.py", json.dumps(payload)],
+    capture_output=True, text=True
+)
+print("  →", result.stdout.strip())
+if result.returncode != 0:
+    print("  ERREUR:", result.stderr.strip())
 ```
 
 ---
@@ -336,9 +285,9 @@ for id_p, bud in budgets.items():
         wb_r = openpyxl.load_workbook(f)
         for sname in wb_r.sheetnames:
             ws_r = wb_r[sname]
-            if ws_r["A12"].value and "APPROUVÉE" in str(ws_r["A12"].value):
+            if ws_r["A14"].value and "APPROUVÉE" in str(ws_r["A14"].value):
                 try:
-                    engage += float(ws_r["B10"].value or 0)
+                    engage += float(ws_r["B12"].value or 0)
                 except (TypeError, ValueError):
                     pass
     lots_state[id_lot] = {"budget": bud["budget_total"], "engage": engage}
