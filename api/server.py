@@ -3,8 +3,9 @@
 Serveur FastAPI — RenovBat 2026
 
 Lancer depuis la racine du projet :
-    uvicorn api.server:app --reload --port 8000
+    uvicorn api.server:app --reload --host 127.0.0.1 --port 8000
 
+--host 127.0.0.1 restreint l'accès à localhost uniquement (défaut uvicorn).
 Endpoints :
     GET  /                          → redirige vers /ui/index.html
     GET  /api/budget                → état budgétaire par lot
