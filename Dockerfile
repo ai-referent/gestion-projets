@@ -15,13 +15,14 @@ COPY api/     api/
 COPY scripts/ scripts/
 COPY ui/      ui/
 
-# Données de référence (immuables dans l'image)
+# Données de référence immuables (CSVs)
 COPY data/budget/       data/budget/
-COPY data/factures/     data/factures/
 COPY data/prestataires/ data/prestataires/
 
-# Répertoires de sortie (écrasés par le volume au runtime)
-RUN mkdir -p data/navettes_et_bons/mails \
+# data/factures/ et les répertoires de sortie sont fournis par le volume
+# monté depuis l'hôte (voir docker-compose.yml : ./data:/app/data)
+RUN mkdir -p data/factures \
+             data/navettes_et_bons/mails \
              data/navettes_et_bons/rejets \
              data/tmp \
              data/vue_globale
