@@ -143,9 +143,28 @@ def find_prestataire(fac):
 # ── Boucle principale ──────────────────────────────────────────────────────────
 
 base_nav = pathlib.Path("data/navettes_et_bons")
-mails_dir = base_nav / "mails"
+mails_dir  = base_nav / "mails"
+rejets_dir = base_nav / "rejets"
 mails_dir.mkdir(parents=True, exist_ok=True)
+rejets_dir.mkdir(parents=True, exist_ok=True)
+tmp_dir = pathlib.Path("data/tmp")
+tmp_dir.mkdir(parents=True, exist_ok=True)
 today_str = date.today().strftime("%d/%m/%Y")
+
+
+def _write_rejet(numero, societe, lot, montant, motif):
+    contenu = f"""\
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✗ REJET — {numero}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Date     : {today_str}
+Société  : {societe}
+Lot      : {lot}
+Montant  : {montant:,.2f} EUR
+Motif    : {motif}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"""
+    (rejets_dir / f"rejet_{numero}.txt").write_text(contenu, encoding="utf-8")
+    print(f"  → Rejet enregistré : rejet_{numero}.txt")
 
 factures_session = []
 
@@ -160,12 +179,14 @@ for pdf_path in factures_pdf:
     # Identification du prestataire
     id_p = find_prestataire(fac)
     if not id_p:
-        print(f"  ✗ REJET : Société non référencée sur le projet ({fac['societe']})")
+        motif_rejet = "Société non référencée sur le projet"
+        print(f"  ✗ REJET : {motif_rejet} ({fac['societe']})")
+        _write_rejet(fac["numero"], fac["societe"], "—", fac["montant_ttc"], motif_rejet)
         factures_session.append({
             "ref": fac["numero"], "societe": fac["societe"],
             "lot": "—", "ttc": fac["montant_ttc"],
             "statut": "Rejetée",
-            "motif": "Société non référencée sur le projet",
+            "motif": motif_rejet,
         })
         continue
 
@@ -242,6 +263,9 @@ for pdf_path in factures_pdf:
         print("  ERREUR:", result.stderr.strip())
         continue
 
+    if not approved:
+        _write_rejet(fac["numero"], fac["societe"], id_lot, montant, motif)
+
     # Étape 5 — Générer le mail de transmission (si approuvée)
     if approved:
         nouveau_cumul = cumul_existant + montant
@@ -281,9 +305,7 @@ RenovBat — Maître d'Œuvre du projet renovation_2026
     })
 
 # Sauvegarder pour generate_recap.py
-vue_dir = pathlib.Path("data/vue_globale")
-vue_dir.mkdir(parents=True, exist_ok=True)
-(vue_dir / ".current_session.json").write_text(
+(tmp_dir / ".current_session.json").write_text(
     json.dumps({"factures_session": factures_session}, ensure_ascii=False, indent=2),
     encoding="utf-8",
 )

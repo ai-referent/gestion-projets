@@ -25,7 +25,7 @@ from openpyxl.styles import Alignment, Font, PatternFill
 # ── Charger les données de session ────────────────────────────────────────────
 
 vue_dir = pathlib.Path("data/vue_globale")
-session_path = vue_dir / ".current_session.json"
+session_path = pathlib.Path("data/tmp") / ".current_session.json"
 if not session_path.exists():
     raise SystemExit("Aucune session en cours. Lancer d'abord process_situations.py.")
 
