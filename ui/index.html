@@ -416,37 +416,14 @@
     <div class="section-title">Vue d'ensemble</div>
 
     <div class="stat-row">
-      <div class="stat-box"><div class="val">3</div><div class="lbl">Factures traitées</div></div>
-      <div class="stat-box"><div class="val">50 550 €</div><div class="lbl">Total engagé</div></div>
-      <div class="stat-box"><div class="val">38 450 €</div><div class="lbl">Budget restant</div></div>
-      <div class="stat-box"><div class="val">23/04/2026</div><div class="lbl">Dernière session</div></div>
+      <div class="stat-box"><div class="val" id="stat-factures">…</div><div class="lbl">Factures traitées</div></div>
+      <div class="stat-box"><div class="val" id="stat-engage">…</div><div class="lbl">Total engagé</div></div>
+      <div class="stat-box"><div class="val" id="stat-dispo">…</div><div class="lbl">Budget restant</div></div>
+      <div class="stat-box"><div class="val" id="stat-session">…</div><div class="lbl">Dernière session</div></div>
     </div>
 
     <div class="section-title">Consommation par lot</div>
-
-    <div class="budget-card">
-      <h4>Isolation thermique</h4>
-      <div class="budget-bar-bg">
-        <div class="budget-bar-fill" style="width:62.5%; background:#e67e22;"></div>
-      </div>
-      <div class="budget-meta">
-        <span>31 250 € engagés</span>
-        <span>Budget : 50 000 €</span>
-        <span><strong>62,5 %</strong></span>
-      </div>
-    </div>
-
-    <div class="budget-card">
-      <h4>Rénovation chauffage</h4>
-      <div class="budget-bar-bg">
-        <div class="budget-bar-fill" style="width:48.25%; background:#2ecc71;"></div>
-      </div>
-      <div class="budget-meta">
-        <span>19 300 € engagés</span>
-        <span>Budget : 40 000 €</span>
-        <span><strong>48,25 %</strong></span>
-      </div>
-    </div>
+    <div id="budget-lots"><p style="color:#a0aec0;padding:1rem 0;">Chargement…</p></div>
   </div>
 </div>
 
@@ -561,103 +538,15 @@
     <div class="section-title">Documents générés</div>
 
     <div class="tabs">
-      <button class="tab-btn active" onclick="showTab('navettes', this)">Navettes</button>
-      <button class="tab-btn" onclick="showTab('bons', this)">Bons de paiement</button>
+      <button class="tab-btn active" onclick="showTab('navettes', this)">Navettes & bons</button>
       <button class="tab-btn" onclick="showTab('mails', this)">Mails IMMOSOCIAL</button>
       <button class="tab-btn" onclick="showTab('bilan', this)">Vue globale</button>
     </div>
 
-    <div id="tab-navettes" class="tab-panel active">
-      <div class="doc-list">
-        <div class="doc-item">
-          <span class="doc-icon">✅</span>
-          <span class="doc-name">navette_FAC-2026-001.txt</span>
-          <span class="doc-date">17/04/2026</span>
-          <button class="doc-dl">⬇ Télécharger</button>
-        </div>
-        <div class="doc-item">
-          <span class="doc-icon">✅</span>
-          <span class="doc-name">navette_FAC-2026-002.txt</span>
-          <span class="doc-date">17/04/2026</span>
-          <button class="doc-dl">⬇ Télécharger</button>
-        </div>
-        <div class="doc-item">
-          <span class="doc-icon">✅</span>
-          <span class="doc-name">navette_FAC-2026-003.txt</span>
-          <span class="doc-date">17/04/2026</span>
-          <button class="doc-dl">⬇ Télécharger</button>
-        </div>
-      </div>
-    </div>
-
-    <div id="tab-bons" class="tab-panel">
-      <div class="doc-list">
-        <div class="doc-item">
-          <span class="doc-icon">💳</span>
-          <span class="doc-name">bon_FAC-2026-001.txt</span>
-          <span class="doc-date">17/04/2026</span>
-          <button class="doc-dl">⬇ Télécharger</button>
-        </div>
-        <div class="doc-item">
-          <span class="doc-icon">💳</span>
-          <span class="doc-name">bon_FAC-2026-002.txt</span>
-          <span class="doc-date">17/04/2026</span>
-          <button class="doc-dl">⬇ Télécharger</button>
-        </div>
-        <div class="doc-item">
-          <span class="doc-icon">💳</span>
-          <span class="doc-name">bon_FAC-2026-003.txt</span>
-          <span class="doc-date">17/04/2026</span>
-          <button class="doc-dl">⬇ Télécharger</button>
-        </div>
-      </div>
-    </div>
-
-    <div id="tab-mails" class="tab-panel">
-      <div class="doc-list">
-        <div class="doc-item">
-          <span class="doc-icon">📨</span>
-          <span class="doc-name">mail_FAC-2026-001.txt</span>
-          <span class="doc-date">17/04/2026</span>
-          <button class="doc-dl">⬇ Télécharger</button>
-        </div>
-        <div class="doc-item">
-          <span class="doc-icon">📨</span>
-          <span class="doc-name">mail_FAC-2026-002.txt</span>
-          <span class="doc-date">17/04/2026</span>
-          <button class="doc-dl">⬇ Télécharger</button>
-        </div>
-        <div class="doc-item">
-          <span class="doc-icon">📨</span>
-          <span class="doc-name">mail_FAC-2026-003.txt</span>
-          <span class="doc-date">17/04/2026</span>
-          <button class="doc-dl">⬇ Télécharger</button>
-        </div>
-      </div>
-    </div>
-
-    <div id="tab-bilan" class="tab-panel">
-      <div class="doc-list">
-        <div class="doc-item">
-          <span class="doc-icon">📊</span>
-          <span class="doc-name">budget_20260423.png</span>
-          <span class="doc-date">23/04/2026</span>
-          <button class="doc-dl">⬇ PNG</button>
-        </div>
-        <div class="doc-item">
-          <span class="doc-icon">📗</span>
-          <span class="doc-name">budget_20260423.xlsx</span>
-          <span class="doc-date">23/04/2026</span>
-          <button class="doc-dl">⬇ Excel</button>
-        </div>
-        <div class="doc-item">
-          <span class="doc-icon">📄</span>
-          <span class="doc-name">recap_20260423.txt</span>
-          <span class="doc-date">23/04/2026</span>
-          <button class="doc-dl">⬇ Télécharger</button>
-        </div>
-      </div>
-    </div>
+    <div id="tab-navettes" class="tab-panel active"><p style="color:#a0aec0;padding:1rem 0;">Chargement…</p></div>
+    <div id="tab-bons" class="tab-panel"><p style="color:#a0aec0;padding:1rem 0;">Chargement…</p></div>
+    <div id="tab-mails" class="tab-panel"><p style="color:#a0aec0;padding:1rem 0;">Chargement…</p></div>
+    <div id="tab-bilan" class="tab-panel"><p style="color:#a0aec0;padding:1rem 0;">Chargement…</p></div>
 
     <div class="reinit-zone">
       <p>⚠️ Réinitialiser tous les documents générés (navettes, bons, mails, bilans)</p>
@@ -667,12 +556,16 @@
 </div>
 
 <script>
+  const API = '';  // même origine, FastAPI sert aussi l'UI
+
   // ── Navigation ──────────────────────────────────────────────
   function goTo(pageId, title, icon) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById('page-' + pageId).classList.add('active');
     document.getElementById('header-title').textContent = icon + '  ' + title;
     document.getElementById('back-btn').style.display = 'inline-block';
+    if (pageId === 'dashboard') loadDashboard();
+    if (pageId === 'documents') loadDocuments();
   }
 
   function goHome() {
@@ -680,6 +573,40 @@
     document.getElementById('page-home').classList.add('active');
     document.getElementById('header-title').textContent = 'RenovBat 2026';
     document.getElementById('back-btn').style.display = 'none';
+  }
+
+  // ── Dashboard ───────────────────────────────────────────────
+  async function loadDashboard() {
+    try {
+      const data = await fetch(API + '/api/budget').then(r => r.json());
+
+      document.getElementById('stat-factures').textContent   = data.nb_factures ?? '—';
+      document.getElementById('stat-engage').textContent     = fmtEur(data.total_engage);
+      document.getElementById('stat-dispo').textContent      = fmtEur(data.total_disponible);
+      document.getElementById('stat-session').textContent    = data.derniere_session ?? '—';
+
+      const container = document.getElementById('budget-lots');
+      container.innerHTML = '';
+      for (const [lot, v] of Object.entries(data.lots)) {
+        const pct = v.budget > 0 ? (v.engage / v.budget * 100) : 0;
+        const color = pct > 90 ? '#e74c3c' : pct > 70 ? '#e67e22' : '#2ecc71';
+        container.innerHTML += `
+          <div class="budget-card">
+            <h4>${lot.replace(/_/g, ' ')}</h4>
+            <div class="budget-bar-bg">
+              <div class="budget-bar-fill" style="width:${pct.toFixed(1)}%; background:${color};"></div>
+            </div>
+            <div class="budget-meta">
+              <span>${fmtEur(v.engage)} engagés</span>
+              <span>Budget : ${fmtEur(v.budget)}</span>
+              <span><strong>${pct.toFixed(1)} %</strong></span>
+            </div>
+          </div>`;
+      }
+    } catch (e) {
+      document.getElementById('budget-lots').innerHTML =
+        '<p style="color:#e74c3c">Erreur de connexion à l\'API. Le serveur est-il démarré ?</p>';
+    }
   }
 
   // ── Formulaire facture ──────────────────────────────────────
@@ -696,25 +623,76 @@
   function submitInvoice() {
     const num = document.getElementById('f-num').value.trim();
     if (!num) { document.getElementById('form-msg').textContent = '⚠ Numéro de facture requis.'; return; }
-    document.getElementById('form-msg').textContent = '✓ Facture ' + num + ' créée avec succès.';
-    document.getElementById('form-msg').style.color = '#276749';
+    // TODO: POST /api/factures quand l'endpoint sera implémenté
+    document.getElementById('form-msg').textContent = '⚠ Fonctionnalité à venir.';
+    document.getElementById('form-msg').style.color = '#e67e22';
   }
 
   // ── Traitement ──────────────────────────────────────────────
-  function launchProcess() {
-    const sampleData = [
-      {ref:'FAC-2026-001', societe:"Platr'O'Matic SARL", lot:'isolation_thermique', ttc:'12 500,00 €', ok:true},
-      {ref:'FAC-2026-002', societe:'RevetoPower & Associes', lot:'isolation_thermique', ttc:'18 750,00 €', ok:true},
-      {ref:'FAC-2026-003', societe:'ChaudoMagic SAS', lot:'renovation_chauffage', ttc:'19 300,00 €', ok:true},
-    ];
-    const tbody = document.getElementById('results-body');
-    tbody.innerHTML = sampleData.map(f => `
-      <tr>
-        <td>${f.ref}</td><td>${f.societe}</td><td>${f.lot.replace('_',' ')}</td>
-        <td>${f.ttc}</td>
-        <td><span class="badge ${f.ok?'badge-ok':'badge-rej'}">${f.ok?'✓ Approuvée':'✗ Rejetée'}</span></td>
-      </tr>`).join('');
-    document.getElementById('process-results').style.display = 'block';
+  async function launchProcess() {
+    const btn = document.querySelector('.btn-launch');
+    btn.disabled = true;
+    btn.textContent = '⏳ Traitement en cours…';
+
+    try {
+      const data = await fetch(API + '/api/situations/run', {method: 'POST'}).then(r => {
+        if (!r.ok) return r.text().then(t => { throw new Error(t); });
+        return r.json();
+      });
+
+      const tbody = document.getElementById('results-body');
+      if (data.factures.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" style="color:#a0aec0;text-align:center;">Aucune nouvelle facture à traiter.</td></tr>';
+      } else {
+        tbody.innerHTML = data.factures.map(f => `
+          <tr>
+            <td>${f.ref}</td>
+            <td>${f.societe}</td>
+            <td>${(f.lot||'').replace(/_/g,' ')}</td>
+            <td>${fmtEur(f.ttc)}</td>
+            <td><span class="badge ${f.statut==='Approuvée'?'badge-ok':'badge-rej'}">
+              ${f.statut==='Approuvée'?'✓ Approuvée':'✗ Rejetée'}
+            </span></td>
+          </tr>`).join('');
+      }
+      document.getElementById('process-results').style.display = 'block';
+    } catch (e) {
+      alert('Erreur : ' + e.message);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = '⚙️ Lancer le traitement';
+    }
+  }
+
+  // ── Documents ───────────────────────────────────────────────
+  async function loadDocuments() {
+    try {
+      const data = await fetch(API + '/api/documents').then(r => r.json());
+      renderDocList('tab-navettes', data.navettes,   '📗');
+      renderDocList('tab-mails',    data.mails,       '📨');
+      renderDocList('tab-bilan',    data.vue_globale, f => f.name.endsWith('.png') ? '📊' : f.name.endsWith('.xlsx') ? '📗' : '📄');
+    } catch (e) {
+      document.getElementById('tab-navettes').innerHTML =
+        '<p style="color:#e74c3c">Erreur de connexion à l\'API.</p>';
+    }
+  }
+
+  function renderDocList(tabId, files, iconOrFn) {
+    const panel = document.getElementById(tabId);
+    if (!files || files.length === 0) {
+      panel.innerHTML = '<p style="color:#a0aec0;padding:1rem 0;">Aucun document.</p>';
+      return;
+    }
+    panel.innerHTML = '<div class="doc-list">' + files.map(f => {
+      const icon = typeof iconOrFn === 'function' ? iconOrFn(f) : iconOrFn;
+      const dlUrl = API + '/api/documents/download?path=' + encodeURIComponent(f.path);
+      return `<div class="doc-item">
+        <span class="doc-icon">${icon}</span>
+        <span class="doc-name">${f.name}</span>
+        <span class="doc-date">${f.date}</span>
+        <a href="${dlUrl}" download="${f.name}"><button class="doc-dl">⬇ Télécharger</button></a>
+      </div>`;
+    }).join('') + '</div>';
   }
 
   // ── Tabs documents ──────────────────────────────────────────
@@ -726,10 +704,21 @@
   }
 
   // ── Réinitialisation ────────────────────────────────────────
-  function confirmReinit() {
-    if (confirm('Supprimer tous les documents générés ? Les factures PDF seront préservées.')) {
-      alert('Réinitialisation effectuée.');
+  async function confirmReinit() {
+    if (!confirm('Supprimer tous les documents générés ? Les factures PDF seront préservées.')) return;
+    try {
+      const data = await fetch(API + '/api/reinit', {method: 'POST'}).then(r => r.json());
+      alert(`✓ Réinitialisation effectuée. ${data.count} fichier(s) supprimé(s).`);
+      loadDocuments();
+    } catch (e) {
+      alert('Erreur : ' + e.message);
     }
+  }
+
+  // ── Utilitaires ─────────────────────────────────────────────
+  function fmtEur(v) {
+    if (v == null) return '—';
+    return Number(v).toLocaleString('fr-FR', {minimumFractionDigits:0, maximumFractionDigits:0}) + ' €';
   }
 </script>
 </body>
