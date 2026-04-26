@@ -61,9 +61,9 @@ for id_p, bud in budgets.items():
         wb_r = openpyxl.load_workbook(f)
         for sname in wb_r.sheetnames:
             ws_r = wb_r[sname]
-            if ws_r["A14"].value and "APPROUVÉE" in str(ws_r["A14"].value):
+            if ws_r["A18"].value and "APPROUVÉE" in str(ws_r["A18"].value):
                 try:
-                    engage += float(ws_r["B12"].value or 0)
+                    engage += float(ws_r["B16"].value or 0)
                 except (TypeError, ValueError):
                     pass
     lots_state[id_lot] = {"budget": bud["budget_total"], "engage": engage}

@@ -220,9 +220,9 @@ for pdf_path in factures_pdf:
     cumul_existant = 0.0
     for sname in wb.sheetnames:
         ws_ex = wb[sname]
-        if ws_ex["A14"].value and "APPROUVÉE" in str(ws_ex["A14"].value):
+        if ws_ex["A18"].value and "APPROUVÉE" in str(ws_ex["A18"].value):
             try:
-                cumul_existant += float(ws_ex["B12"].value or 0)
+                cumul_existant += float(ws_ex["B16"].value or 0)
             except (TypeError, ValueError):
                 pass
 
@@ -249,6 +249,8 @@ for pdf_path in factures_pdf:
             "montant_ttc": montant,
         },
         "id_lot":          id_lot,
+        "lot_num":         lot_nums[id_p],
+        "adresse":         prestataires[id_p].get("adresse_prestataire", ""),
         "approved":        approved,
         "motif":           motif,
         "cumul_existant":  cumul_existant,
