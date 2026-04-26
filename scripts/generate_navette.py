@@ -31,7 +31,7 @@ import sys
 from datetime import date
 
 import openpyxl
-from openpyxl.styles import Font
+from openpyxl.styles import Font, PatternFill, Alignment
 
 TVA_TAUX = 0.20
 
@@ -77,7 +77,12 @@ def add_sheet(data: dict) -> str:
     ws["A1"].font = Font(bold=True, size=13)
     ws.merge_cells("A1:B1")
 
-    ws["A3"] = "MOE";  ws["B3"] = "RenovBat"
+    ws["A2"] = "RenovBat Bureau d'Etude Bâtiment"
+    ws["A2"].font = Font(bold=True, color="FFFFFF")
+    ws["A2"].fill = PatternFill("solid", fgColor="1E8449")
+    ws["A2"].alignment = Alignment(horizontal="center")
+    ws.merge_cells("A2:B2")
+
     ws["A4"] = "MOA";  ws["B4"] = "IMMOSOCIAL_69"
 
     ws["A6"] = "Référence facture";  ws["B6"] = fac["numero"]
@@ -135,7 +140,8 @@ def add_sheet(data: dict) -> str:
 
         ws["A32"] = "Date d'émission";  ws["B32"] = today
         ws["A33"] = "Établi par";       ws["B33"] = "RenovBat (MOE)"
-        ws["A34"] = "À destination de"; ws["B34"] = "IMMOSOCIAL_69 (MOA)"
+        ws["A34"] = "Signataire";       ws["B34"] = "J. Pons"
+        ws["A35"] = "À destination de"; ws["B35"] = "IMMOSOCIAL_69 (MOA)"
 
     ws.column_dimensions["A"].width = 38
     ws.column_dimensions["B"].width = 22
