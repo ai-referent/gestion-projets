@@ -1,0 +1,18 @@
+[project]
+name = "gestion-projets"
+version = "0.1.0"
+description = "Gestion des situations de chantier — Projet renovation_2026"
+requires-python = ">=3.10"
+
+dependencies = [
+    "fastapi>=0.111",
+    "uvicorn[standard]>=0.29",
+    "openpyxl>=3.1",
+    "matplotlib>=3.8",
+]
+
+[project.optional-dependencies]
+dev = ["httpx"]   # client HTTP pour tester les endpoints
+
+[tool.setuptools]
+packages = ["api"]
