@@ -1,0 +1,8 @@
+.git/
+__pycache__/
+*.pyc
+data/navettes_et_bons/*.xlsx
+data/navettes_et_bons/mails/
+data/navettes_et_bons/rejets/
+data/tmp/
+data/vue_globale/

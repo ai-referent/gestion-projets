@@ -1,0 +1,8 @@
+services:
+  app:
+    build: .
+    ports:
+      - "127.0.0.1:8000:8000"   # accessible uniquement depuis localhost
+    volumes:
+      - ./data:/app/data         # données générées persistées sur l'hôte
+    restart: unless-stopped
